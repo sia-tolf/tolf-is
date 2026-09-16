@@ -18,6 +18,13 @@ const langButtons = {
   ru: document.getElementById("lang-ru")
 };
 
+function cleanHeroTitlePunctuation() {
+  const title = document.querySelector(".hero h1");
+  if (!title) return;
+
+  title.innerHTML = title.innerHTML.replace(/\.(?=<br\s*\/?\s*>|$)/g, "");
+}
+
 function fitHeroTitle() {
   const title = document.querySelector(".hero h1");
   if (!title) return;
@@ -40,6 +47,8 @@ function setLanguage(lang) {
   document.querySelectorAll("[data-en][data-lv][data-ru]").forEach((element) => {
     element.innerHTML = element.dataset[lang];
   });
+
+  cleanHeroTitlePunctuation();
 
   Object.entries(langButtons).forEach(([key, button]) => {
     button.classList.toggle("active", key === lang);

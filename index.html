@@ -13,11 +13,13 @@
 <meta content="TOLF Network Suite" property="og:title"/>
 <meta content="index,follow" name="robots"/>
 <meta content="TOLF Network Suite — VPN, DNS, configuration and account tools for your devices." name="description"/>
-<link href="styles.css?v=20260916-7" rel="stylesheet"/>
+<link href="styles.css?v=20260916-8" rel="stylesheet"/>
 <style>
 .product-grid { align-items: start; }
 .card { min-height: 0; }
 .hero { padding: 40px 0 48px; }
+#products { padding-bottom: 48px; }
+#supported-systems { padding-bottom: 46px; }
 .language button.active {
   color: var(--text);
   background: #d9d9df;
@@ -40,7 +42,7 @@
   border-color: color-mix(in srgb, var(--accent) 55%, var(--line-strong));
 }
 .supported-panel {
-  padding: 30px;
+  padding: 28px 30px 24px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -51,7 +53,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .supported-head h2 {
   margin: 0;
@@ -70,21 +72,41 @@
 .supported-os {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  gap: 10px;
 }
 .supported-os div {
-  padding: 20px 14px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--soft);
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 580;
 }
-.supported-os div + div { border-left: 1px solid var(--line); }
 .supported-note {
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   color: var(--secondary);
   font-size: 14px;
 }
+.account-panel { padding: 32px; }
+.account-features {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 28px;
+  border: 0;
+}
+.account-feature,
+.account-feature + .account-feature {
+  padding: 0;
+  border: 0;
+}
+.account-feature strong {
+  margin-bottom: 7px;
+  font-size: 17px;
+}
+.account-feature span { display: block; }
+.account-bottom { margin-top: 24px; }
 @media (prefers-color-scheme: dark) {
   .language button.active {
     background: #3a3a3c;
@@ -93,17 +115,25 @@
 }
 @media (max-width: 800px) {
   .hero { padding: 40px 0 46px; }
+  #products { padding-bottom: 42px; }
+  #supported-systems { padding-bottom: 42px; }
+  .account-features { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 }
 @media (max-width: 520px) {
   .hero { padding: 36px 0 42px; }
   html[lang="ru"] h1 { font-size: clamp(40px, 11.5vw, 46px); letter-spacing: -0.055em; }
   .signup-link { min-height: 34px; padding: 0 6px; font-size: 13px; }
+  #products { padding-bottom: 34px; }
+  #supported-systems { padding-bottom: 34px; }
   .supported-panel { padding: 23px; border-radius: 20px; }
-  .supported-head { display: block; }
+  .supported-head { display: block; margin-bottom: 17px; }
   .supported-head p { margin-top: 10px; text-align: left; }
-  .supported-os { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .supported-os div:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
-  .supported-os div:nth-child(4) { border-top: 1px solid var(--line); }
+  .supported-os { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .supported-os div { padding: 11px 10px; }
+  .account-panel { padding: 25px; }
+  .account-features { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 18px; }
+  .account-feature,
+  .account-feature + .account-feature { padding: 0; border: 0; }
 }
 </style>
 </head>
@@ -126,7 +156,7 @@
 <section class="hero">
 <div class="shell">
 <p class="eyebrow" data-en="TOLF Network Suite" data-lv="TOLF Network Suite" data-ru="TOLF Network Suite">TOLF Network Suite</p>
-<h1 data-en="Your network.&lt;br&gt;Your devices.&lt;br&gt;Your control." data-lv="Jūsu tīkls.&lt;br&gt;Jūsu ierīces.&lt;br&gt;Jūsu kontrole." data-ru="Ваша сеть.&lt;br&gt;Ваши устройства.&lt;br&gt;Ваш контроль.">Your network.<br/>Your devices.<br/>Your control.</h1>
+<h1 data-en="Your network&lt;br&gt;Your devices&lt;br&gt;Your control" data-lv="Jūsu tīkls&lt;br&gt;Jūsu ierīces&lt;br&gt;Jūsu kontrole" data-ru="Ваша сеть&lt;br&gt;Ваши устройства&lt;br&gt;Ваш контроль">Your network<br/>Your devices<br/>Your control</h1>
 <p class="hero-copy" data-en="Private networking tools designed to stay simple." data-lv="Privātā tīkla rīki, kas veidoti vienkāršai lietošanai." data-ru="Сетевые инструменты, в которых всё необходимое остаётся простым.">Private networking tools designed to stay simple.</p>
 </div>
 </section>
@@ -186,5 +216,5 @@
 </section>
 </main>
 <footer><div class="shell footer-inner"><div>© <span id="year"></span> TOLF IS</div><nav aria-label="Footer" class="footer-links"><a data-en="Status" data-lv="Statuss" data-route="status" data-ru="Статус" href="#">Status</a><a data-en="Privacy" data-lv="Privātums" data-route="privacy" data-ru="Конфиденциальность" href="#">Privacy</a><a data-en="Contact" data-lv="Kontakti" data-route="contact" data-ru="Контакты" href="#">Contact</a></nav></div></footer>
-<script defer src="app.js?v=20260916-7"></script></body>
+<script defer src="app.js?v=20260916-8"></script></body>
 </html>

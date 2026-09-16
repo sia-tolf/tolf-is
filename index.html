@@ -13,7 +13,7 @@
 <meta content="TOLF Network Suite" property="og:title"/>
 <meta content="index,follow" name="robots"/>
 <meta content="TOLF Network Suite — VPN, DNS, configuration and account tools for your devices." name="description"/>
-<link href="styles.css?v=20260916-4" rel="stylesheet"/>
+<link href="styles.css?v=20260916-5" rel="stylesheet"/>
 <style>
 .product-grid { align-items: start; }
 .card { min-height: 0; }
@@ -28,12 +28,17 @@
   display: inline-flex;
   align-items: center;
   padding: 0 11px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line-strong));
   border-radius: 10px;
-  color: var(--text);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  font-weight: 600;
   white-space: nowrap;
 }
-.signup-link:hover { background: var(--surface); }
+.signup-link:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line-strong));
+}
 @media (prefers-color-scheme: dark) {
   .language button.active {
     background: #3a3a3c;
@@ -80,7 +85,7 @@
 <p data-en="Use only what you need. Each service works on its own and fits into one TOLF account." data-lv="Izmantojiet tikai to, kas nepieciešams. Katrs pakalpojums darbojas patstāvīgi un ir pieejams vienā TOLF kontā." data-ru="Используйте только то, что нужно. Каждый сервис работает самостоятельно и входит в единый аккаунт TOLF.">Use only what you need. Each service works on its own and fits into one TOLF account.</p>
 </div>
 <div class="product-grid">
-<article class="card"><h3>TOLF VPN</h3><p data-en="Connect through TOLF locations and manage access for your devices." data-lv="Savienojieties caur TOLF mezgliem un pārvaldiet piekļuvi savām ierīcēm." data-ru="Подключайтесь через узлы TOLF и управляйте доступом для своих устройств.">Connect through TOLF locations and manage access for your devices.</p><a class="card-link" data-en="Open VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="vpn" data-ru="Открыть VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://vpn.tolf.is/">Open VPN <span class="arrow">→</span></a></article>
+<article class="card"><h3>TOLF VPN</h3><p data-en="Connect to the TOLF network and manage access for your devices." data-lv="Pievienojieties TOLF tīklam un pārvaldiet piekļuvi savām ierīcēm." data-ru="Подключитесь к сети TOLF и управляйте доступом для своих устройств.">Connect to the TOLF network and manage access for your devices.</p><a class="card-link" data-en="Open VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="vpn" data-ru="Открыть VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://vpn.tolf.is/">Open VPN <span class="arrow">→</span></a></article>
 <article class="card"><h3 data-en="IKEv2 Configurator" data-lv="IKEv2 Configurator" data-ru="IKEv2 Configurator">IKEv2 Configurator</h3><p data-en="Create IKEv2 profiles for iOS, iPadOS, Android and Windows." data-lv="Izveidojiet IKEv2 profilus iOS, iPadOS, Android un Windows." data-ru="Создавайте IKEv2-профили для iOS, iPadOS, Android и Windows.">Create IKEv2 profiles for iOS, iPadOS, Android and Windows.</p><a class="card-link" data-en="Open Configurator &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt konfiguratoru &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="configurator" data-ru="Открыть конфигуратор &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://config.tolf.is/">Open Configurator <span class="arrow">→</span></a></article>
 <article class="card"><h3>TOLF DNS</h3><p data-en="Private encrypted DNS with selectable resolver and filtering policies." data-lv="Privāts šifrēts DNS ar izvēlētu resolveri un filtrēšanas noteikumiem." data-ru="Приватный зашифрованный DNS с выбором резолвера и правил фильтрации.">Private encrypted DNS with selectable resolver and filtering policies.</p><a class="card-link" data-en="Open DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="dns" data-ru="Открыть DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" href="#">Open DNS <span class="arrow">→</span></a></article>
 <article class="card"><h3>TOLF Recovery</h3><p data-en="Recovery tools for your TOLF account, credentials and trusted devices." data-lv="Atkopšanas rīki TOLF kontam, piekļuves datiem un uzticamām ierīcēm." data-ru="Восстановление доступа к аккаунту TOLF, учётным данным и доверенным устройствам.">Recovery tools for your TOLF account, credentials and trusted devices.</p><a class="card-link" data-en="Open Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="recovery" data-ru="Открыть Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" href="#">Open Recovery <span class="arrow">→</span></a></article>
@@ -112,5 +117,5 @@
 </section>
 </main>
 <footer><div class="shell footer-inner"><div>© <span id="year"></span> TOLF IS</div><nav aria-label="Footer" class="footer-links"><a data-en="Status" data-lv="Statuss" data-route="status" data-ru="Статус" href="#">Status</a><a data-en="Privacy" data-lv="Privātums" data-route="privacy" data-ru="Конфиденциальность" href="#">Privacy</a><a data-en="Contact" data-lv="Kontakti" data-route="contact" data-ru="Контакты" href="#">Contact</a></nav></div></footer>
-<script defer src="app.js?v=20260916-4"></script></body>
+<script defer src="app.js?v=20260916-5"></script></body>
 </html>

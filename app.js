@@ -59,6 +59,23 @@ function applyRoutes() {
   });
 }
 
+function keepMobileSignInVisible() {
+  const signIn = document.querySelector(".account-link");
+  if (!signIn) return;
+
+  if (window.matchMedia("(max-width: 520px)").matches) {
+    signIn.style.display = "inline-flex";
+    signIn.style.minHeight = "36px";
+    signIn.style.padding = "0 8px";
+    signIn.style.fontSize = "14px";
+  } else {
+    signIn.style.removeProperty("display");
+    signIn.style.removeProperty("min-height");
+    signIn.style.removeProperty("padding");
+    signIn.style.removeProperty("font-size");
+  }
+}
+
 langButtons.en.addEventListener("click", () => setLanguage("en"));
 langButtons.lv.addEventListener("click", () => setLanguage("lv"));
 langButtons.ru.addEventListener("click", () => setLanguage("ru"));
@@ -79,3 +96,5 @@ setLanguage(
 );
 
 applyRoutes();
+keepMobileSignInVisible();
+window.addEventListener("resize", keepMobileSignInVisible);

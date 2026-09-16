@@ -18,6 +18,22 @@ const langButtons = {
   ru: document.getElementById("lang-ru")
 };
 
+function fitHeroTitle() {
+  const title = document.querySelector(".hero h1");
+  if (!title) return;
+
+  const isNarrow = window.matchMedia("(max-width: 520px)").matches;
+  const isRussian = document.documentElement.lang === "ru";
+
+  if (isNarrow && isRussian) {
+    title.style.fontSize = "clamp(36px, 10.8vw, 46px)";
+    title.style.letterSpacing = "-0.055em";
+  } else {
+    title.style.removeProperty("font-size");
+    title.style.removeProperty("letter-spacing");
+  }
+}
+
 function setLanguage(lang) {
   document.documentElement.lang = lang;
 
@@ -31,6 +47,7 @@ function setLanguage(lang) {
   });
 
   localStorage.setItem("tolf-language", lang);
+  fitHeroTitle();
 }
 
 function applyRoutes() {
@@ -111,7 +128,9 @@ setLanguage(
 applyRoutes();
 keepMobileSignInVisible();
 tightenHeroSpacing();
+fitHeroTitle();
 window.addEventListener("resize", () => {
   keepMobileSignInVisible();
   tightenHeroSpacing();
+  fitHeroTitle();
 });

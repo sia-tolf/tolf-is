@@ -41,15 +41,16 @@ function fitHeroTitle() {
   }
 }
 
-function accountRoute(base) {
+function localizedRoute(base) {
   const url = new URL(base);
   url.searchParams.set("lang", document.documentElement.lang);
   return url.toString();
 }
 
 function refreshAccountLinks() {
-  const signIn = accountRoute(TOLF.routes.accountSignIn);
-  const signUp = accountRoute(TOLF.routes.accountCreate);
+  const signIn = localizedRoute(TOLF.routes.accountSignIn);
+  const signUp = localizedRoute(TOLF.routes.accountCreate);
+  const configurator = localizedRoute(TOLF.routes.configurator);
 
   document.querySelectorAll('[data-route="account-signin"]').forEach((link) => {
     link.href = signIn;
@@ -57,6 +58,10 @@ function refreshAccountLinks() {
 
   document.querySelectorAll('[data-route="account-create"]').forEach((link) => {
     link.href = signUp;
+  });
+
+  document.querySelectorAll('[data-route="configurator"]').forEach((link) => {
+    link.href = configurator;
   });
 
   const headerSignIn = document.querySelector(".account-link");

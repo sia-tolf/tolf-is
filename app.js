@@ -41,6 +41,31 @@ function fitHeroTitle() {
   }
 }
 
+function accountRoute(base) {
+  const url = new URL(base);
+  url.searchParams.set("lang", document.documentElement.lang);
+  return url.toString();
+}
+
+function refreshAccountLinks() {
+  const signIn = accountRoute(TOLF.routes.accountSignIn);
+  const signUp = accountRoute(TOLF.routes.accountCreate);
+
+  document.querySelectorAll('[data-route="account-signin"]').forEach((link) => {
+    link.href = signIn;
+  });
+
+  document.querySelectorAll('[data-route="account-create"]').forEach((link) => {
+    link.href = signUp;
+  });
+
+  const headerSignIn = document.querySelector(".account-link");
+  const headerSignUp = document.querySelector(".signup-link");
+
+  if (headerSignIn) headerSignIn.href = signIn;
+  if (headerSignUp) headerSignUp.href = signUp;
+}
+
 function setLanguage(lang) {
   document.documentElement.lang = lang;
 
@@ -57,6 +82,7 @@ function setLanguage(lang) {
 
   localStorage.setItem("tolf-language", lang);
   fitHeroTitle();
+  refreshAccountLinks();
 }
 
 function applyRoutes() {
@@ -84,16 +110,7 @@ function applyRoutes() {
     link.addEventListener("click", (event) => event.preventDefault());
   });
 
-  const headerSignIn = document.querySelector(".account-link");
-  const headerSignUp = document.querySelector(".signup-link");
-
-  if (headerSignIn) {
-    headerSignIn.href = TOLF.routes.accountSignIn;
-  }
-
-  if (headerSignUp) {
-    headerSignUp.href = TOLF.routes.accountCreate;
-  }
+  refreshAccountLinks();
 }
 
 function keepMobileSignInVisible() {
@@ -132,6 +149,10 @@ langButtons.ru.addEventListener("click", () => setLanguage("ru"));
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
+const url = new URL(window.location.href);
+const requestedLanguage = ["en", "lv", "ru"].includes(url.searchParams.get("lang"))
+  ? url.searchParams.get("lang")
+  : null;
 const savedLanguage = localStorage.getItem("tolf-language");
 const browserLanguage = navigator.language.toLowerCase().startsWith("lv")
   ? "lv"
@@ -140,10 +161,16 @@ const browserLanguage = navigator.language.toLowerCase().startsWith("lv")
     : "en";
 
 setLanguage(
-  ["en", "lv", "ru"].includes(savedLanguage)
+  requestedLanguage ||
+  (["en", "lv", "ru"].includes(savedLanguage)
     ? savedLanguage
-    : browserLanguage
+    : browserLanguage)
 );
+
+if (requestedLanguage) {
+  url.searchParams.delete("lang");
+  window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+}
 
 applyRoutes();
 keepMobileSignInVisible();

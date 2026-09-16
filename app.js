@@ -76,6 +76,19 @@ function keepMobileSignInVisible() {
   }
 }
 
+function tightenHeroSpacing() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+
+  if (window.matchMedia("(max-width: 520px)").matches) {
+    hero.style.padding = "36px 0 42px";
+  } else if (window.matchMedia("(max-width: 800px)").matches) {
+    hero.style.padding = "40px 0 46px";
+  } else {
+    hero.style.padding = "40px 0 48px";
+  }
+}
+
 langButtons.en.addEventListener("click", () => setLanguage("en"));
 langButtons.lv.addEventListener("click", () => setLanguage("lv"));
 langButtons.ru.addEventListener("click", () => setLanguage("ru"));
@@ -97,4 +110,8 @@ setLanguage(
 
 applyRoutes();
 keepMobileSignInVisible();
-window.addEventListener("resize", keepMobileSignInVisible);
+tightenHeroSpacing();
+window.addEventListener("resize", () => {
+  keepMobileSignInVisible();
+  tightenHeroSpacing();
+});

@@ -435,9 +435,12 @@
 
     @media (max-width: 520px) {
       body { font-size: 16px; }
-      .topbar-inner { height: 54px; }
+      .topbar-inner { height: 54px; gap: 10px; }
       .brand { font-size: 19px; }
-      .account-link { display: none; }
+      .top-actions { gap: 5px; }
+      .language { padding: 3px; }
+      .language button { min-width: 34px; height: 30px; padding: 0 6px; font-size: 14px; }
+      .account-link { display: inline-flex; min-height: 36px; padding: 0 8px; font-size: 14px; white-space: nowrap; }
       .hero { padding: 70px 0 58px; text-align: left; }
       .eyebrow { font-size: 20px; }
       h1 { margin: 0; font-size: clamp(48px, 15vw, 64px); }

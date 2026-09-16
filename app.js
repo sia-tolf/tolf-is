@@ -1,11 +1,11 @@
 const TOLF = {
   routes: {
     vpn: "https://vpn.tolf.is/",
-    configurator: "https://config.tolf.is/",
+    configurator: "https://configurator.tolf.is/",
     dns: null,
     recovery: null,
-    accountSignIn: null,
-    accountCreate: null,
+    accountSignIn: "https://vpn.tolf.is/?action=signin",
+    accountCreate: "https://vpn.tolf.is/?action=signup",
     status: null,
     privacy: null,
     contact: null
@@ -83,6 +83,17 @@ function applyRoutes() {
     link.setAttribute("aria-disabled", "true");
     link.addEventListener("click", (event) => event.preventDefault());
   });
+
+  const headerSignIn = document.querySelector(".account-link");
+  const headerSignUp = document.querySelector(".signup-link");
+
+  if (headerSignIn) {
+    headerSignIn.href = TOLF.routes.accountSignIn;
+  }
+
+  if (headerSignUp) {
+    headerSignUp.href = TOLF.routes.accountCreate;
+  }
 }
 
 function keepMobileSignInVisible() {

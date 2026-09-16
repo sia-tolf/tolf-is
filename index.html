@@ -13,7 +13,7 @@
 <meta content="TOLF Network Suite" property="og:title"/>
 <meta content="index,follow" name="robots"/>
 <meta content="TOLF Network Suite — VPN, DNS, configuration and account tools for your devices." name="description"/>
-<link href="styles.css?v=20260916-5" rel="stylesheet"/>
+<link href="styles.css?v=20260916-6" rel="stylesheet"/>
 <style>
 .product-grid { align-items: start; }
 .card { min-height: 0; }
@@ -39,6 +39,52 @@
   background: color-mix(in srgb, var(--accent) 10%, transparent);
   border-color: color-mix(in srgb, var(--accent) 55%, var(--line-strong));
 }
+.supported-panel {
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.supported-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.supported-head h2 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  font-weight: 650;
+}
+.supported-head p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--secondary);
+  text-align: right;
+  font-size: 16px;
+}
+.supported-os {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.supported-os div {
+  padding: 20px 14px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 580;
+}
+.supported-os div + div { border-left: 1px solid var(--line); }
+.supported-note {
+  margin: 18px 0 0;
+  color: var(--secondary);
+  font-size: 14px;
+}
 @media (prefers-color-scheme: dark) {
   .language button.active {
     background: #3a3a3c;
@@ -51,6 +97,12 @@
 @media (max-width: 520px) {
   .hero { padding: 36px 0 42px; }
   .signup-link { min-height: 34px; padding: 0 6px; font-size: 13px; }
+  .supported-panel { padding: 23px; border-radius: 20px; }
+  .supported-head { display: block; }
+  .supported-head p { margin-top: 10px; text-align: left; }
+  .supported-os { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .supported-os div:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+  .supported-os div:nth-child(4) { border-top: 1px solid var(--line); }
 }
 </style>
 </head>
@@ -75,7 +127,6 @@
 <p class="eyebrow" data-en="TOLF Network Suite" data-lv="TOLF Network Suite" data-ru="TOLF Network Suite">TOLF Network Suite</p>
 <h1 data-en="Your network.&lt;br&gt;Your devices.&lt;br&gt;Your control." data-lv="Jūsu tīkls.&lt;br&gt;Jūsu ierīces.&lt;br&gt;Jūsu kontrole." data-ru="Ваша сеть.&lt;br&gt;Ваши устройства.&lt;br&gt;Ваш контроль.">Your network.<br/>Your devices.<br/>Your control.</h1>
 <p class="hero-copy" data-en="Private networking tools designed to stay simple." data-lv="Privātā tīkla rīki, kas veidoti vienkāršai lietošanai." data-ru="Сетевые инструменты, в которых всё необходимое остаётся простым.">Private networking tools designed to stay simple.</p>
-<div class="hero-actions"><a class="button primary" data-en="Explore TOLF" data-lv="Atvērt TOLF" data-ru="Открыть TOLF" href="#products">Explore TOLF</a></div>
 </div>
 </section>
 <section class="section" id="products">
@@ -89,6 +140,23 @@
 <article class="card"><h3 data-en="IKEv2 Configurator" data-lv="IKEv2 Configurator" data-ru="IKEv2 Configurator">IKEv2 Configurator</h3><p data-en="Create IKEv2 profiles for iOS, iPadOS, Android and Windows." data-lv="Izveidojiet IKEv2 profilus iOS, iPadOS, Android un Windows." data-ru="Создавайте IKEv2-профили для iOS, iPadOS, Android и Windows.">Create IKEv2 profiles for iOS, iPadOS, Android and Windows.</p><a class="card-link" data-en="Open Configurator &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt konfiguratoru &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="configurator" data-ru="Открыть конфигуратор &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://config.tolf.is/">Open Configurator <span class="arrow">→</span></a></article>
 <article class="card"><h3>TOLF DNS</h3><p data-en="Private encrypted DNS with selectable resolver and filtering policies." data-lv="Privāts šifrēts DNS ar izvēlētu resolveri un filtrēšanas noteikumiem." data-ru="Приватный зашифрованный DNS с выбором резолвера и правил фильтрации.">Private encrypted DNS with selectable resolver and filtering policies.</p><a class="card-link" data-en="Open DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="dns" data-ru="Открыть DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" href="#">Open DNS <span class="arrow">→</span></a></article>
 <article class="card"><h3>TOLF Recovery</h3><p data-en="Recovery tools for your TOLF account, credentials and trusted devices." data-lv="Atkopšanas rīki TOLF kontam, piekļuves datiem un uzticamām ierīcēm." data-ru="Восстановление доступа к аккаунту TOLF, учётным данным и доверенным устройствам.">Recovery tools for your TOLF account, credentials and trusted devices.</p><a class="card-link" data-en="Open Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="recovery" data-ru="Открыть Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" href="#">Open Recovery <span class="arrow">→</span></a></article>
+</div>
+</div>
+</section>
+<section class="section" id="supported-systems">
+<div class="shell">
+<div class="supported-panel">
+<div class="supported-head">
+<h2 data-en="Supported systems" data-lv="Atbalstītās sistēmas" data-ru="Поддерживаемые системы">Supported systems</h2>
+<p data-en="TOLF products are built for the operating systems you already use." data-lv="TOLF produkti ir veidoti operētājsistēmām, kuras jūs jau izmantojat." data-ru="Продукты TOLF рассчитаны на операционные системы, которыми вы уже пользуетесь.">TOLF products are built for the operating systems you already use.</p>
+</div>
+<div class="supported-os" aria-label="Supported operating systems">
+<div>iOS</div>
+<div>iPadOS</div>
+<div>Android</div>
+<div>Windows</div>
+</div>
+<p class="supported-note" data-en="Availability and minimum OS versions vary by product." data-lv="Pieejamība un minimālā operētājsistēmas versija ir atkarīga no produkta." data-ru="Доступность и минимальная версия ОС зависят от конкретного продукта.">Availability and minimum OS versions vary by product.</p>
 </div>
 </div>
 </section>
@@ -117,5 +185,5 @@
 </section>
 </main>
 <footer><div class="shell footer-inner"><div>© <span id="year"></span> TOLF IS</div><nav aria-label="Footer" class="footer-links"><a data-en="Status" data-lv="Statuss" data-route="status" data-ru="Статус" href="#">Status</a><a data-en="Privacy" data-lv="Privātums" data-route="privacy" data-ru="Конфиденциальность" href="#">Privacy</a><a data-en="Contact" data-lv="Kontakti" data-route="contact" data-ru="Контакты" href="#">Contact</a></nav></div></footer>
-<script defer src="app.js?v=20260916-5"></script></body>
+<script defer src="app.js?v=20260916-6"></script></body>
 </html>

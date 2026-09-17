@@ -7,9 +7,9 @@
   if (!topActions || !signIn || !signUp) return;
 
   const labels = {
-    en: { account: "TOLF account", signedIn: "Signed in", logout: "Sign out" },
-    ru: { account: "Аккаунт TOLF", signedIn: "Вы вошли", logout: "Выйти" },
-    lv: { account: "TOLF konts", signedIn: "Esat pieteicies", logout: "Iziet" }
+    en: { account: "TOLF account", signedIn: "Signed in", logout: "Sign out", usedForSignIn: "Used to sign in", accountLabel: "Account" },
+    ru: { account: "Аккаунт TOLF", signedIn: "Вы вошли", logout: "Выйти", usedForSignIn: "Использован для входа", accountLabel: "Аккаунт" },
+    lv: { account: "TOLF konts", signedIn: "Esat pieteicies", logout: "Iziet", usedForSignIn: "Izmantots, lai pieteiktos", accountLabel: "Konts" }
   };
 
   const style = document.createElement("style");
@@ -50,6 +50,7 @@
       font-weight: 560;
       white-space: nowrap;
       outline: none;
+      cursor: pointer;
     }
 
     .authenticated-account-name {
@@ -85,11 +86,7 @@
       color: var(--text);
       text-align: left;
       white-space: normal;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-2px);
-      transition: opacity .14s ease, transform .14s ease, visibility .14s ease;
-      pointer-events: none;
+      pointer-events: auto;
     }
 
     .authenticated-account-tooltip-name {
@@ -109,12 +106,18 @@
       font-weight: 500;
     }
 
-    .authenticated-account-status:hover .authenticated-account-tooltip,
-    .authenticated-account-status:focus-visible .authenticated-account-tooltip {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+    .authenticated-account-tooltip[hidden] { display: none !important; }
+    .authenticated-account-tooltip-account {
+      display: block;
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px solid var(--line);
+      overflow-wrap: anywhere;
+      font-size: 12px;
+      line-height: 1.35;
+      color: var(--secondary);
     }
+    .authenticated-account-tooltip-account[hidden] { display: none !important; }
 
     .authenticated-account-status:focus-visible {
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
@@ -179,6 +182,9 @@
   const status = document.createElement("span");
   status.className = "authenticated-account-status";
   status.tabIndex = 0;
+  status.setAttribute("role", "button");
+  status.setAttribute("aria-expanded", "false");
+  status.setAttribute("data-user-content", "");
 
   const statusName = document.createElement("span");
   statusName.className = "authenticated-account-name";
@@ -186,6 +192,9 @@
   const tooltip = document.createElement("span");
   tooltip.className = "authenticated-account-tooltip";
   tooltip.setAttribute("role", "tooltip");
+  tooltip.id = "tolfAccountTooltip";
+  tooltip.hidden = true;
+  status.setAttribute("aria-describedby", tooltip.id);
 
   const tooltipName = document.createElement("span");
   tooltipName.className = "authenticated-account-tooltip-name";
@@ -193,7 +202,10 @@
   const tooltipState = document.createElement("span");
   tooltipState.className = "authenticated-account-tooltip-state";
 
-  tooltip.append(tooltipName, tooltipState);
+  const tooltipAccount = document.createElement("span");
+  tooltipAccount.className = "authenticated-account-tooltip-account";
+  tooltipAccount.hidden = true;
+  tooltip.append(tooltipName, tooltipState, tooltipAccount);
   status.append(statusName, tooltip);
 
   const logout = document.createElement("button");
@@ -233,16 +245,26 @@
     return compact || name;
   }
 
+  // Contract: /me.currentPasskey is provided by the server for this session.
+  // Never infer a current key from key-list ordering, device name or browser storage.
+  function currentPasskeyName(data) {
+    const value = data?.currentPasskey?.name;
+    return typeof value === "string" && value.trim() ? value.trim() : "";
+  }
+
   function refreshLabels() {
     const lang = language();
     const copy = labels[lang];
     const fullName = accountName(accountData);
-    const displayName = fullName ? compactAccountName(fullName) : copy.account;
-    const tooltipFullName = fullName || copy.account;
+    const keyName = currentPasskeyName(accountData);
+    const displayName = keyName || (fullName ? compactAccountName(fullName) : copy.account);
+    const tooltipFullName = keyName || fullName || copy.account;
 
     statusName.textContent = displayName;
     tooltipName.textContent = tooltipFullName;
-    tooltipState.textContent = copy.signedIn;
+    tooltipState.textContent = keyName ? copy.usedForSignIn : copy.signedIn;
+    tooltipAccount.hidden = !keyName || !fullName;
+    tooltipAccount.textContent = keyName && fullName ? `${copy.accountLabel}: ${fullName}` : "";
     status.setAttribute("aria-label", `${tooltipFullName}. ${copy.signedIn}`);
     logout.textContent = copy.logout;
   }
@@ -256,11 +278,14 @@
   }
 
   function showGuest() {
+    setTooltip(false);
     accountData = null;
     controls.hidden = true;
     statusName.textContent = "";
     tooltipName.textContent = "";
     tooltipState.textContent = "";
+    tooltipAccount.textContent = "";
+    tooltipAccount.hidden = true;
     logout.textContent = "";
     signIn.hidden = false;
     signUp.hidden = false;
@@ -271,6 +296,7 @@
       const response = await fetch(`${API}/me`, {
         method: "GET",
         credentials: "include",
+        cache: "no-store",
         headers: { Accept: "application/json" }
       });
 
@@ -286,6 +312,37 @@
       showGuest();
     }
   }
+
+  function setTooltip(open) {
+    const visible = Boolean(open && !controls.hidden);
+    tooltip.hidden = !visible;
+    status.setAttribute("aria-expanded", String(visible));
+  }
+  status.addEventListener("pointerenter", event => {
+    if (event.pointerType === "mouse") setTooltip(true);
+  });
+  status.addEventListener("pointerleave", event => {
+    if (event.pointerType === "mouse") setTooltip(false);
+  });
+  status.addEventListener("focus", () => {
+    if (status.matches(":focus-visible")) setTooltip(true);
+  });
+  status.addEventListener("blur", () => setTooltip(false));
+  status.addEventListener("click", event => {
+    if (!tooltip.contains(event.target)) setTooltip(tooltip.hidden);
+  });
+  status.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setTooltip(tooltip.hidden);
+    }
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") setTooltip(false);
+  });
+  document.addEventListener("pointerdown", event => {
+    if (!status.contains(event.target)) setTooltip(false);
+  });
 
   logout.addEventListener("click", async () => {
     logout.disabled = true;

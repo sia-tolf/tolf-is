@@ -227,16 +227,23 @@
     return candidates.find(value => typeof value === "string" && value.trim())?.trim() || "";
   }
 
+  function compactAccountName(name) {
+    if (!name) return "";
+    const compact = name.replace(/^user_/i, "");
+    return compact || name;
+  }
+
   function refreshLabels() {
     const lang = language();
     const copy = labels[lang];
-    const name = accountName(accountData);
-    const displayName = name || copy.account;
+    const fullName = accountName(accountData);
+    const displayName = fullName ? compactAccountName(fullName) : copy.account;
+    const tooltipFullName = fullName || copy.account;
 
     statusName.textContent = displayName;
-    tooltipName.textContent = displayName;
+    tooltipName.textContent = tooltipFullName;
     tooltipState.textContent = copy.signedIn;
-    status.setAttribute("aria-label", `${displayName}. ${copy.signedIn}`);
+    status.setAttribute("aria-label", `${tooltipFullName}. ${copy.signedIn}`);
     logout.textContent = copy.logout;
   }
 

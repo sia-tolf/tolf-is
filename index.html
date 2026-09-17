@@ -15,8 +15,13 @@
 <meta content="TOLF Network Suite — VPN, DNS, configuration and account tools for your devices." name="description"/>
 <link href="styles.css?v=20260916-8" rel="stylesheet"/>
 <style>
-.product-grid { align-items: start; }
+.product-grid { align-items: stretch; }
 .card { min-height: 0; }
+@media (min-width: 801px) {
+  .product-grid { grid-auto-rows: 1fr; }
+  .product-grid > .card { height: 100%; }
+  .product-grid > .card .card-link { margin-top: auto; padding-top: 24px; }
+}
 .hero { padding: 40px 0 48px; }
 #products { padding-bottom: 48px; }
 #supported-systems { padding-bottom: 46px; }

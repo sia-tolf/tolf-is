@@ -14,6 +14,10 @@
 
   const style = document.createElement("style");
   style.textContent = `
+    body.account-authenticated .account-link,
+    body.account-authenticated .signup-link {
+      display: none !important;
+    }
     .authenticated-account {
       display: inline-flex;
       align-items: center;
@@ -49,7 +53,6 @@
       background: transparent;
       color: var(--secondary);
       font: inherit;
-      font-size: 14px;
       cursor: pointer;
       white-space: nowrap;
     }
@@ -70,7 +73,7 @@
       .authenticated-account-logout {
         min-height: 34px;
         padding: 0 6px;
-        font-size: 13px;
+        font-size: 14px;
       }
       .authenticated-account-status::before {
         width: 7px;
@@ -109,6 +112,7 @@
       data?.displayName,
       data?.name,
       data?.username,
+      data?.vpn?.username,
       data?.user?.display_name,
       data?.user?.displayName,
       data?.user?.name,

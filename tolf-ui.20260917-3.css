@@ -1,0 +1,22 @@
+/* TOLF UI refinements 2026-09-17.3. The approved Blue 6 palette is unchanged. */
+html[data-tolf-ui] {
+  --tolf-language-active: #d9d9df;
+  --tolf-language-shadow: inset 0 0 0 1px rgba(0,0,0,.10);
+}
+@media (prefers-color-scheme: dark) {
+  html[data-tolf-ui] {
+    --tolf-language-active: #3a3a3c;
+    --tolf-language-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+}
+/* Apply the home page's neutral selected state to both configurator pages.
+   These selectors do not touch platform, server or protocol selectors. */
+html[data-tolf-ui] .language button:is(.active, [aria-pressed="true"]) {
+  background: var(--tolf-language-active);
+  color: var(--tolf-ink);
+  box-shadow: var(--tolf-language-shadow);
+}
+/* Extra space only on the side with neighbouring copy, not around a solo logo. */
+html[data-tolf-ui] .tolf-wordmark { margin-inline: 0; }
+html[data-tolf-ui] .tolf-wordmark[data-tolf-before] { margin-inline-start: .35em; }
+html[data-tolf-ui] .tolf-wordmark[data-tolf-after] { margin-inline-end: .35em; }

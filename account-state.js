@@ -18,6 +18,9 @@
     body.account-authenticated .signup-link {
       display: none !important;
     }
+    .authenticated-account[hidden] {
+      display: none !important;
+    }
     .authenticated-account {
       display: inline-flex;
       align-items: center;
@@ -36,7 +39,7 @@
       font-weight: 560;
       white-space: nowrap;
     }
-    .authenticated-account-status::before {
+    .authenticated-account:not([hidden]) .authenticated-account-status::before {
       content: "";
       width: 8px;
       height: 8px;
@@ -75,7 +78,7 @@
         padding: 0 6px;
         font-size: 14px;
       }
-      .authenticated-account-status::before {
+      .authenticated-account:not([hidden]) .authenticated-account-status::before {
         width: 7px;
         height: 7px;
         margin-right: 5px;
@@ -142,6 +145,8 @@
   function showGuest() {
     accountData = null;
     controls.hidden = true;
+    status.textContent = "";
+    logout.textContent = "";
     signIn.hidden = false;
     signUp.hidden = false;
   }

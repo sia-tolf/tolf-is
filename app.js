@@ -4,8 +4,8 @@ const TOLF = {
     configurator: "https://configurator.tolf.is/",
     dns: null,
     recovery: null,
-    accountSignIn: "https://vpn.tolf.is/?action=signin",
-    accountCreate: "https://vpn.tolf.is/?action=signup",
+    accountSignIn: "https://vpn.tolf.is/auth/?mode=signin&next=home",
+    accountCreate: "https://vpn.tolf.is/auth/?mode=signup&next=home",
     status: null,
     privacy: null,
     contact: null

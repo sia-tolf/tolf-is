@@ -252,12 +252,19 @@
     return typeof value === "string" && value.trim() ? value.trim() : "";
   }
 
+  function compactPasskeyName(name) {
+    if (!name) return "";
+    const trimmed = name.trim();
+    const match = trimmed.match(/^TOLF[\s\-–—_:·./|#]+(.+)$/i);
+    return match?.[1]?.trim() || trimmed;
+  }
+
   function refreshLabels() {
     const lang = language();
     const copy = labels[lang];
     const fullName = accountName(accountData);
     const keyName = currentPasskeyName(accountData);
-    const displayName = keyName || (fullName ? compactAccountName(fullName) : copy.account);
+    const displayName = keyName ? compactPasskeyName(keyName) : (fullName ? compactAccountName(fullName) : copy.account);
     const tooltipFullName = keyName || fullName || copy.account;
 
     statusName.textContent = displayName;

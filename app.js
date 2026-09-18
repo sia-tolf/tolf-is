@@ -420,8 +420,9 @@ setLanguage(
     : browserLanguage)
 );
 
-if (requestedLanguage) {
+if (requestedLanguage || url.searchParams.has("ui")) {
   url.searchParams.delete("lang");
+  url.searchParams.delete("ui");
   window.history.replaceState({}, "", url.pathname + url.search + url.hash);
 }
 

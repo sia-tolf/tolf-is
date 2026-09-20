@@ -52,6 +52,11 @@ function refreshAccountLinks() {
   const signIn = localizedRoute(TOLF.routes.accountSignIn);
   const signUp = localizedRoute(TOLF.routes.accountCreate);
   const configurator = localizedRoute(TOLF.routes.configurator);
+  const vpn = localizedRoute(TOLF.routes.vpn);
+
+  document.querySelectorAll('[data-route="vpn"]').forEach((link) => {
+    link.href = vpn;
+  });
 
   document.querySelectorAll('[data-route="account-signin"]').forEach((link) => {
     link.href = signIn;

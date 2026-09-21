@@ -35,6 +35,7 @@
     }
 
     .authenticated-account-status {
+      text-decoration: none;
       position: relative;
       min-width: 0;
       max-width: 200px;
@@ -179,10 +180,10 @@
   controls.className = "authenticated-account";
   controls.hidden = true;
 
-  const status = document.createElement("span");
+  const status = document.createElement("a");
   status.className = "authenticated-account-status";
   status.tabIndex = 0;
-  status.setAttribute("role", "button");
+  status.href = "https://vpn.tolf.is/account/";
   status.setAttribute("aria-expanded", "false");
   status.setAttribute("data-user-content", "");
 
@@ -267,12 +268,13 @@
     const displayName = keyName ? compactPasskeyName(keyName) : (fullName ? compactAccountName(fullName) : copy.account);
     const tooltipFullName = keyName || fullName || copy.account;
 
-    statusName.textContent = displayName;
+    statusName.textContent = copy.account;
+    status.href = "https://vpn.tolf.is/account/?lang=" + lang;
     tooltipName.textContent = tooltipFullName;
     tooltipState.textContent = keyName ? copy.usedForSignIn : copy.signedIn;
     tooltipAccount.hidden = !keyName || !fullName;
     tooltipAccount.textContent = keyName && fullName ? `${copy.accountLabel}: ${fullName}` : "";
-    status.setAttribute("aria-label", `${tooltipFullName}. ${copy.signedIn}`);
+    status.setAttribute("aria-label", copy.account);
     logout.textContent = copy.logout;
   }
 
@@ -335,15 +337,6 @@
     if (status.matches(":focus-visible")) setTooltip(true);
   });
   status.addEventListener("blur", () => setTooltip(false));
-  status.addEventListener("click", event => {
-    if (!tooltip.contains(event.target)) setTooltip(tooltip.hidden);
-  });
-  status.addEventListener("keydown", event => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      setTooltip(tooltip.hidden);
-    }
-  });
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") setTooltip(false);
   });

@@ -11,7 +11,9 @@
   function setSmartDnsAccess(enabled) {
     if (!smartDnsCard || !smartDnsLink) return;
     smartDnsCard.classList.toggle("smart-dns-enabled", Boolean(enabled));
-    smartDnsLink.href = enabled ? "https://smartdns.tolf.is/" : "#";
+    smartDnsLink.href = enabled
+      ? "https://smartdns.tolf.is/?lang=" + language()
+      : "#";
     smartDnsLink.setAttribute("aria-disabled", String(!enabled));
     if (enabled) smartDnsLink.removeAttribute("tabindex");
     else smartDnsLink.setAttribute("tabindex", "-1");
@@ -273,6 +275,9 @@
 
   function refreshLabels() {
     const lang = language();
+    if (smartDnsCard?.classList.contains("smart-dns-enabled")) {
+      setSmartDnsAccess(true);
+    }
     const copy = labels[lang];
     const fullName = accountName(accountData);
     const keyName = currentPasskeyName(accountData);

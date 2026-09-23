@@ -3,8 +3,19 @@
   const topActions = document.querySelector(".top-actions");
   const signIn = document.querySelector(".account-link");
   const signUp = document.querySelector(".signup-link");
+  const smartDnsCard = document.querySelector("[data-smart-dns-card]");
+  const smartDnsLink = document.querySelector("[data-smart-dns-link]");
 
   if (!topActions || !signIn || !signUp) return;
+
+  function setSmartDnsAccess(enabled) {
+    if (!smartDnsCard || !smartDnsLink) return;
+    smartDnsCard.classList.toggle("smart-dns-enabled", Boolean(enabled));
+    smartDnsLink.href = enabled ? "https://smartdns.tolf.is/" : "#";
+    smartDnsLink.setAttribute("aria-disabled", String(!enabled));
+    if (enabled) smartDnsLink.removeAttribute("tabindex");
+    else smartDnsLink.setAttribute("tabindex", "-1");
+  }
 
   const labels = {
     en: { account: "TOLF account", signedIn: "Signed in", logout: "Sign out", usedForSignIn: "Used to sign in", accountLabel: "Account" },
@@ -283,6 +294,7 @@
     signIn.hidden = true;
     signUp.hidden = true;
     controls.hidden = false;
+    setSmartDnsAccess(true);
     refreshLabels();
   }
 
@@ -298,6 +310,7 @@
     logout.textContent = "";
     signIn.hidden = false;
     signUp.hidden = false;
+    setSmartDnsAccess(false);
   }
 
   async function loadState() {

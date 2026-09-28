@@ -3,7 +3,6 @@ const TOLF = {
     vpn: "https://vpn.tolf.is/",
     configurator: "https://configurator.tolf.is/",
     dns: null,
-    recovery: null,
     accountSignIn: "https://vpn.tolf.is/auth/?mode=signin&next=home",
     accountCreate: "https://vpn.tolf.is/auth/?mode=signup&next=home",
     status: null,
@@ -101,7 +100,6 @@ function applyRoutes() {
     vpn: TOLF.routes.vpn,
     configurator: TOLF.routes.configurator,
     dns: TOLF.routes.dns,
-    recovery: TOLF.routes.recovery,
     "account-signin": TOLF.routes.accountSignIn,
     "account-create": TOLF.routes.accountCreate,
     status: TOLF.routes.status,
@@ -138,7 +136,7 @@ function installGuestExperience() {
     productGrid.insertBefore(configuratorCard, productGrid.firstElementChild);
   }
 
-  ["vpn", "dns", "recovery"].forEach((routeName) => {
+  ["vpn", "dns"].forEach((routeName) => {
     const link = productGrid.querySelector(`[data-route="${routeName}"]`);
     const card = link?.closest(".card");
     if (!link || !card) return;

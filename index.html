@@ -25,7 +25,7 @@
 .product-grid { align-items: stretch; }
 .card { min-height: 0; }
 @media (min-width: 801px) {
-  .product-grid { grid-auto-rows: 1fr; }
+  .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; }
   .product-grid > .card { height: 100%; }
   .product-grid > .card .card-link { margin-top: auto; padding-top: 24px; }
 }
@@ -205,7 +205,6 @@
 <article class="card"><h3>TOLF VPN</h3><p data-en="Connect to the TOLF network and manage access for your devices." data-lv="Pievienojieties TOLF tīklam un pārvaldiet piekļuvi savām ierīcēm." data-ru="Подключитесь к сети TOLF и управляйте доступом для своих устройств.">Connect to the TOLF network and manage access for your devices.</p><a class="card-link" data-en="Open VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="vpn" data-ru="Открыть VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://vpn.tolf.is/">Open VPN <span class="arrow">→</span></a></article>
 <article class="card"><h3 data-en="TOLF Configurator" data-lv="TOLF Configurator" data-ru="TOLF Configurator">TOLF Configurator</h3><p data-en="Create network configuration files directly in your browser. IKEv2 is available now; DNS and Wi-Fi profiles are being prepared." data-lv="Izveidojiet tīkla konfigurācijas failus tieši pārlūkā. IKEv2 jau ir pieejams; DNS un Wi-Fi profili tiek gatavoti." data-ru="Создавайте сетевые конфигурации прямо в браузере. IKEv2 уже доступен; профили DNS и Wi-Fi готовятся.">Create network configuration files directly in your browser. IKEv2 is available now; DNS and Wi-Fi profiles are being prepared.</p><a class="card-link" data-en="Open Configurator &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt konfiguratoru &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="configurator" data-ru="Открыть конфигуратор &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://config.tolf.is/">Open Configurator <span class="arrow">→</span></a></article>
 <article class="card smart-dns-card" data-smart-dns-card><h3>TOLF Smart DNS</h3><p data-en="Encrypted DNS with automatic regional routing, personal devices and TOLF-managed settings." data-lv="Šifrēts DNS ar automātisku reģionālo maršrutēšanu, personīgajām ierīcēm un TOLF pārvaldītiem iestatījumiem." data-ru="Зашифрованный DNS с автоматической региональной маршрутизацией, персональными устройствами и настройками TOLF.">Encrypted DNS with automatic regional routing, personal devices and TOLF-managed settings.</p><span class="smart-dns-requirement" data-en="TOLF account required" data-lv="Nepieciešams TOLF konts" data-ru="Требуется аккаунт TOLF">TOLF account required</span><a class="card-link smart-dns-link" data-smart-dns-link data-en="Open Smart DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt Smart DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-ru="Открыть Smart DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" href="#" aria-disabled="true" tabindex="-1">Open Smart DNS <span class="arrow">→</span></a></article>
-<article class="card"><h3>TOLF Recovery</h3><p data-en="Recovery tools for your TOLF account, credentials and trusted devices." data-lv="Atkopšanas rīki TOLF kontam, piekļuves datiem un uzticamām ierīcēm." data-ru="Восстановление доступа к аккаунту TOLF, учётным данным и доверенным устройствам.">Recovery tools for your TOLF account, credentials and trusted devices.</p><a class="card-link" data-en="Open Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="recovery" data-ru="Открыть Recovery &lt;span class='arrow'&gt;→&lt;/span&gt;" href="#">Open Recovery <span class="arrow">→</span></a></article>
 </div>
 </div>
 </section>
@@ -238,7 +237,7 @@
 </main>
 <footer><div class="shell footer-inner"><div>© <span id="year"></span> TOLF</div><nav aria-label="Footer" class="footer-links"><a data-en="Status" data-lv="Statuss" data-route="status" data-ru="Статус" href="#">Status</a><a data-en="Privacy" data-lv="Privātums" data-route="privacy" data-ru="Конфиденциальность" href="#">Privacy</a><a data-en="Contact" data-lv="Kontakti" data-route="contact" data-ru="Контакты" href="#">Contact</a></nav></div></footer>
 <script defer src="passkey-session-label.20260917-1.js"></script>
-<script defer src="app.js?v=language-handoff-20260920-1"></script>
+<script defer src="app.js?v=recovery-in-account-20260928-1"></script>
 <script defer src="account-state.js?v=account-page-20260921"></script>
 </body>
 </html>

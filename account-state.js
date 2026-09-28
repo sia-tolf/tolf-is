@@ -20,9 +20,9 @@
   }
 
   const labels = {
-    en: { account: "TOLF account", signedIn: "Signed in", logout: "Sign out", usedForSignIn: "Used to sign in", accountLabel: "Account" },
-    ru: { account: "Аккаунт TOLF", signedIn: "Вы вошли", logout: "Выйти", usedForSignIn: "Использован для входа", accountLabel: "Аккаунт" },
-    lv: { account: "TOLF konts", signedIn: "Esat pieteicies", logout: "Iziet", usedForSignIn: "Izmantots, lai pieteiktos", accountLabel: "Konts" }
+    en: { account: "My TOLF account", signedIn: "Signed in", logout: "Sign out", usedForSignIn: "Used to sign in", accountLabel: "Account" },
+    ru: { account: "Личный кабинет TOLF", signedIn: "Вы вошли", logout: "Выйти", usedForSignIn: "Использован для входа", accountLabel: "Аккаунт" },
+    lv: { account: "Mans TOLF konts", signedIn: "Esat pieteicies", logout: "Iziet", usedForSignIn: "Izmantots, lai pieteiktos", accountLabel: "Konts" }
   };
 
   const style = document.createElement("style");
@@ -158,6 +158,24 @@
 
     body.account-authenticated .account-bottom {
       display: none;
+    }
+
+    @media (min-width: 801px) {
+      body.account-authenticated .top-actions {
+        flex: 1;
+        min-width: 0;
+        justify-content: flex-end;
+      }
+
+      .authenticated-account:not([hidden]) { display: contents; }
+      .authenticated-account-status {
+        order: 1;
+        flex: 1 1 240px;
+        max-width: 320px;
+        justify-content: center;
+      }
+      .top-actions .language { order: 2; }
+      .authenticated-account-logout { order: 3; }
     }
 
     @media (max-width: 520px) {

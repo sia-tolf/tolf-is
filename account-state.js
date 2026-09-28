@@ -179,6 +179,50 @@
     }
 
     @media (max-width: 520px) {
+      body.account-authenticated .topbar-inner {
+        height: auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: 42px 42px;
+        column-gap: 8px;
+        row-gap: 6px;
+        padding-block: 8px;
+      }
+
+      body.account-authenticated .topbar-inner > .brand {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: start;
+      }
+
+      body.account-authenticated .top-actions { display: contents; }
+
+      body.account-authenticated .top-actions .language {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        align-self: center;
+      }
+
+      body.account-authenticated .authenticated-account:not([hidden]) {
+        display: flex;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
+      }
+
+      body.account-authenticated .authenticated-account-status {
+        flex: 1 1 auto;
+        max-width: none;
+        min-width: 0;
+        justify-content: center;
+      }
+
+      body.account-authenticated .authenticated-account-name {
+        overflow: visible;
+        text-overflow: clip;
+      }
+
       .authenticated-account-status {
         max-width: 132px;
         min-height: 34px;

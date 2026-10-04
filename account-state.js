@@ -20,9 +20,9 @@
   }
 
   const labels = {
-    en: { account: "My TOLF account", signedIn: "Signed in", logout: "Sign out", usedForSignIn: "Used to sign in", accountLabel: "Account" },
-    ru: { account: "Личный кабинет TOLF", signedIn: "Вы вошли", logout: "Выйти", usedForSignIn: "Использован для входа", accountLabel: "Аккаунт" },
-    lv: { account: "Mans TOLF konts", signedIn: "Esat pieteicies", logout: "Iziet", usedForSignIn: "Izmantots, lai pieteiktos", accountLabel: "Konts" }
+    en: { account: "My account", signedIn: "Signed in", logout: "Sign out", usedForSignIn: "Used to sign in", accountLabel: "Account" },
+    ru: { account: "Личный кабинет", signedIn: "Вы вошли", logout: "Выйти", usedForSignIn: "Использован для входа", accountLabel: "Аккаунт" },
+    lv: { account: "Mans konts", signedIn: "Esat pieteicies", logout: "Iziet", usedForSignIn: "Izmantots, lai pieteiktos", accountLabel: "Konts" }
   };
 
   const style = document.createElement("style");

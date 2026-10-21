@@ -6,8 +6,9 @@ const TOLF = {
     accountSignIn: "https://vpn.tolf.is/auth/?mode=signin&next=home",
     accountCreate: "https://vpn.tolf.is/auth/?mode=signup&next=home",
     status: null,
-    privacy: null,
-    contact: null
+    privacy: "https://vpn.tolf.is/privacy.html",
+    terms: "https://vpn.tolf.is/terms.html",
+    contact: "https://vpn.tolf.is/contact.html"
   },
   api: "https://api.tolf.is"
 };
@@ -69,6 +70,12 @@ function refreshAccountLinks() {
     link.href = configurator;
   });
 
+  for (const routeName of ["privacy", "terms", "contact"]) {
+    document.querySelectorAll('[data-route="' + routeName + '"]').forEach(link => {
+      link.href = localizedRoute(TOLF.routes[routeName]);
+    });
+  }
+
   const headerSignIn = document.querySelector(".account-link");
   const headerSignUp = document.querySelector(".signup-link");
 
@@ -104,6 +111,7 @@ function applyRoutes() {
     "account-create": TOLF.routes.accountCreate,
     status: TOLF.routes.status,
     privacy: TOLF.routes.privacy,
+    terms: TOLF.routes.terms,
     contact: TOLF.routes.contact
   };
 

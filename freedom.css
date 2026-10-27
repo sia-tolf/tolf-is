@@ -6,10 +6,12 @@
   font-weight: 400;
   font-display: swap;
 }
+html[data-tolf-ui="home"] .topbar-inner,
+html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap: 24px; }
 .freedom-motto {
   flex: 0 0 auto;
   margin: 0;
-  padding: 0 4px 3px;
+  padding: 0 0 3px;
   color: var(--text);
   font-family: "Tolf Freedom", "Apple Chancery", "Segoe Script", cursive;
   font-size: 48px;
@@ -18,6 +20,37 @@
   line-height: 1;
   letter-spacing: 0;
   white-space: nowrap;
+}
+@media (min-width: 801px) {
+  /* Reserve the Russian label width in every language, including the status dot. */
+  html[data-tolf-ui="home"] .authenticated-account-status {
+    display: inline-grid;
+    grid-template-columns: 8px auto;
+    column-gap: 7px;
+    flex: 0 0 auto;
+    width: max-content;
+    min-width: max-content;
+    max-width: none;
+    justify-content: center;
+  }
+  html[data-tolf-ui="home"] .authenticated-account:not([hidden]) .authenticated-account-status::before {
+    grid-column: 1;
+    grid-row: 1;
+    margin-right: 0;
+  }
+  html[data-tolf-ui="home"] .authenticated-account-name {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+  }
+  html[data-tolf-ui="home"] .authenticated-account-status::after {
+    content: "Личный кабинет";
+    visibility: hidden;
+    grid-column: 2;
+    grid-row: 1;
+    white-space: nowrap;
+    pointer-events: none;
+  }
 }
 @media (min-width: 701px) and (max-width: 900px) {
   .freedom-motto { font-size: 42px; }
@@ -29,7 +62,7 @@
     height: auto;
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: 42px 42px;
-    column-gap: 12px;
+    column-gap: 24px;
     row-gap: 6px;
     padding-block: 6px;
   }
@@ -41,7 +74,7 @@
   html[data-tolf-ui="home"] .freedom-motto {
     grid-column: 2;
     grid-row: 1;
-    justify-self: center;
+    justify-self: start;
     font-size: clamp(36px, 6.8vw, 44px);
   }
   html[data-tolf-ui="home"] .top-actions,

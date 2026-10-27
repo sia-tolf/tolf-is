@@ -23,7 +23,7 @@ html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap:
 }
 @media (min-width: 801px) {
   /* Reserve the Russian label width in every language, including the status dot. */
-  html[data-tolf-ui="home"] .authenticated-account-status {
+  html[data-tolf-ui="home"] body .top-actions .authenticated-account-status {
     display: inline-grid;
     grid-template-columns: 8px auto;
     column-gap: 7px;

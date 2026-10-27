@@ -1,7 +1,7 @@
 /* Homepage signature. The font is served locally; no third-party requests. */
 @font-face {
   font-family: "Tolf Freedom";
-  src: url("assets/fonts/pinyon-tolf-freedom.woff") format("woff");
+  src: url("assets/fonts/italianno-tolf-freedom.woff") format("woff");
   font-style: normal;
   font-weight: 400;
   font-display: swap;

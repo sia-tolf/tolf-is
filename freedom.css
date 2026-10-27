@@ -6,32 +6,58 @@
   font-weight: 400;
   font-display: swap;
 }
-.freedom-row { padding-top: 18px; }
 .freedom-motto {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 310px;
-  max-width: 100%;
-  min-height: 88px;
+  flex: 0 0 auto;
   margin: 0;
-  padding: 8px 20px 10px;
-  border: 1px solid #39393f;
-  border-radius: 8px;
-  background: #e9e9ed;
-  color: #151517;
+  padding: 0 4px 3px;
+  color: var(--text);
   font-family: "Tolf Freedom", "Apple Chancery", "Segoe Script", cursive;
-  font-size: 60px;
+  font-size: 48px;
   font-weight: 400;
   font-synthesis: none;
-  line-height: 1.15;
+  line-height: 1;
   letter-spacing: 0;
   white-space: nowrap;
 }
-@media (max-width: 1024px) {
-  .freedom-motto { width: 100%; font-size: clamp(56px, 7vw, 76px); }
+@media (min-width: 701px) and (max-width: 900px) {
+  .freedom-motto { font-size: 42px; }
 }
-@media (max-width: 520px) {
-  .freedom-row { padding-top: 14px; }
-  .freedom-motto { padding-inline: 16px; }
+@media (max-width: 700px) {
+  html[data-tolf-ui="home"] .topbar-inner,
+  html[data-tolf-ui="home"] body.account-authenticated .topbar-inner {
+    display: grid;
+    height: auto;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: 42px 42px;
+    column-gap: 12px;
+    row-gap: 6px;
+    padding-block: 6px;
+  }
+  html[data-tolf-ui="home"] .topbar-inner > .brand {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+  html[data-tolf-ui="home"] .freedom-motto {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    font-size: clamp(36px, 6.8vw, 44px);
+  }
+  html[data-tolf-ui="home"] .top-actions,
+  html[data-tolf-ui="home"] body.account-authenticated .top-actions {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  html[data-tolf-ui="home"] .authenticated-account:not([hidden]),
+  html[data-tolf-ui="home"] body.account-authenticated .authenticated-account:not([hidden]) { display: contents; }
+  html[data-tolf-ui="home"] .authenticated-account-status { order: 1; flex: 1 1 auto; min-width: 0; max-width: none; }
+  html[data-tolf-ui="home"] .top-actions .language { order: 2; }
+  html[data-tolf-ui="home"] .authenticated-account-logout { order: 3; }
 }

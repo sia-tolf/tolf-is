@@ -13,7 +13,7 @@
   justify-content: center;
   width: 310px;
   max-width: 100%;
-  min-height: 76px;
+  min-height: 88px;
   margin: 0;
   padding: 8px 20px 10px;
   border: 1px solid #39393f;
@@ -21,14 +21,17 @@
   background: #e9e9ed;
   color: #151517;
   font-family: "Tolf Freedom", "Apple Chancery", "Segoe Script", cursive;
-  font-size: 46px;
+  font-size: 60px;
   font-weight: 400;
   font-synthesis: none;
   line-height: 1.15;
   letter-spacing: 0;
   white-space: nowrap;
 }
+@media (max-width: 1024px) {
+  .freedom-motto { width: 100%; font-size: clamp(56px, 7vw, 76px); }
+}
 @media (max-width: 520px) {
   .freedom-row { padding-top: 14px; }
-  .freedom-motto { width: 285px; min-height: 70px; font-size: 43px; padding-inline: 16px; }
+  .freedom-motto { padding-inline: 16px; }
 }

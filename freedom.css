@@ -121,3 +121,15 @@ html[data-tolf-ui="home"] .top-actions > a.signup-link {
   html[data-tolf-ui="home"] .top-actions > a.account-link,
   html[data-tolf-ui="home"] .top-actions > a.signup-link {border-color:#69aaff !important;}
 }
+
+/* Soft cherry tint across the home header, matching the TOLF emblem. */
+html[data-tolf-ui="home"] .topbar {
+  background: linear-gradient(180deg, #f5f5f7 0%, #f0e1e7 45%, #eacbd6 100%);
+  border-bottom-color: #d7bcc6;
+}
+@media (prefers-color-scheme: dark) {
+  html[data-tolf-ui="home"] .topbar {
+    background: linear-gradient(180deg, #1c1c1e 0%, #2a2026 45%, #402630 100%);
+    border-bottom-color: #60404d;
+  }
+}

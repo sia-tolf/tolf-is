@@ -2,7 +2,7 @@
 html[data-tolf-ui="home"] .topbar-inner,
 html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap: 24px; min-height: 84px; height: auto; }
 .freedom-motto { flex: 0 1 280px; min-width: 0; width: 280px; margin: 0; padding: 2px 0; line-height: 0; }
-.freedom-motto img { display: block; width: 100%; height: auto; max-height: 78px; object-fit: contain; }
+.freedom-motto img { display: block; width: 100%; height: auto; max-height: 78px; object-fit: contain; transform: translateY(-3px) scaleX(.9); transform-origin: left center; }
 @media (min-width: 801px) {
   /* Reserve the Russian label width in every language, including the status dot. */
   html[data-tolf-ui="home"] body .top-actions .authenticated-account-status {

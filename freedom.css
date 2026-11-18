@@ -1,26 +1,8 @@
-/* Homepage signature. The font is served locally; no third-party requests. */
-@font-face {
-  font-family: "Tolf Freedom";
-  src: url("assets/fonts/italianno-tolf-freedom.woff") format("woff");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
+/* Approved handwritten signature, served locally with transparent background. */
 html[data-tolf-ui="home"] .topbar-inner,
-html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap: 24px; }
-.freedom-motto {
-  flex: 0 0 auto;
-  margin: 0;
-  padding: 0 0 3px;
-  color: var(--text);
-  font-family: "Tolf Freedom", "Apple Chancery", "Segoe Script", cursive;
-  font-size: 48px;
-  font-weight: 400;
-  font-synthesis: none;
-  line-height: 1;
-  letter-spacing: 0;
-  white-space: nowrap;
-}
+html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap: 24px; min-height: 84px; height: auto; }
+.freedom-motto { flex: 0 1 280px; min-width: 0; width: 280px; margin: 0; padding: 2px 0; line-height: 0; }
+.freedom-motto img { display: block; width: 100%; height: auto; max-height: 78px; object-fit: contain; }
 @media (min-width: 801px) {
   /* Reserve the Russian label width in every language, including the status dot. */
   html[data-tolf-ui="home"] body .top-actions .authenticated-account-status {
@@ -53,7 +35,7 @@ html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap:
   }
 }
 @media (min-width: 701px) and (max-width: 900px) {
-  .freedom-motto { font-size: 42px; }
+  .freedom-motto { flex-basis: 240px; width: 240px; }
 }
 @media (max-width: 700px) {
   html[data-tolf-ui="home"] .topbar-inner,
@@ -61,8 +43,8 @@ html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap:
     display: grid;
     height: auto;
     grid-template-columns: auto minmax(0, 1fr);
-    grid-template-rows: 42px 42px;
-    column-gap: 24px;
+    grid-template-rows: auto 42px;
+    column-gap: 14px;
     row-gap: 6px;
     padding-block: 6px;
   }
@@ -75,7 +57,8 @@ html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap:
     grid-column: 2;
     grid-row: 1;
     justify-self: start;
-    font-size: clamp(36px, 6.8vw, 44px);
+    width: min(100%, 280px);
+    padding: 4px 0;
   }
   html[data-tolf-ui="home"] .top-actions,
   html[data-tolf-ui="home"] body.account-authenticated .top-actions {
@@ -94,3 +77,5 @@ html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap:
   html[data-tolf-ui="home"] .top-actions .language { order: 2; }
   html[data-tolf-ui="home"] .authenticated-account-logout { order: 3; }
 }
+
+@media (prefers-color-scheme: dark) { .freedom-motto img { filter: invert(1); } }

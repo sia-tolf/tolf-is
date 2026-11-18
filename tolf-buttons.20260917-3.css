@@ -2,14 +2,14 @@
 @import url("./tolf-buttons.20260917-2.css");
 
 /* One neutral active language state across home, account and configurator. */
-html[data-tolf-ui] .language button:is(.active, [aria-pressed="true"]) {
+html[data-tolf-ui] .language :is(button, a):is(.active, [aria-pressed="true"]) {
   color: var(--tolf-ink);
   background: #d9d9df;
   border-color: transparent;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .10);
 }
 @media (prefers-color-scheme: dark) {
-  html[data-tolf-ui] .language button:is(.active, [aria-pressed="true"]) {
+  html[data-tolf-ui] .language :is(button, a):is(.active, [aria-pressed="true"]) {
     background: #3a3a3c;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
   }
@@ -37,7 +37,7 @@ html[data-tolf-ui="home"] .authenticated-account-logout { flex: 0 0 auto; }
 @media (max-width: 380px) {
   html[data-tolf-ui="home"] .topbar-inner { gap: 6px; }
   html[data-tolf-ui="home"] .top-actions { gap: 4px; }
-  html[data-tolf-ui="home"] .language button { min-width: 28px; padding-inline: 4px; font-size: 13px; }
+  html[data-tolf-ui="home"] .language :is(button, a) { min-width: 28px; padding-inline: 4px; font-size: 13px; }
   html[data-tolf-ui="home"] .authenticated-account-logout { padding-inline: 4px; font-size: 13px; }
 }
 

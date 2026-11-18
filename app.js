@@ -94,10 +94,11 @@ function setLanguage(lang) {
 
   Object.entries(langButtons).forEach(([key, button]) => {
     button.classList.toggle("active", key === lang);
-    button.setAttribute("aria-pressed", key === lang ? "true" : "false");
+    if (key === lang) button.setAttribute("aria-current", "page");
+    else button.removeAttribute("aria-current");
   });
 
-  localStorage.setItem("tolf-language", lang);
+  try { localStorage.setItem("tolf-language", lang); } catch {}
   fitHeroTitle();
   refreshAccountLinks();
 }
@@ -406,9 +407,19 @@ function tightenHeroSpacing() {
   }
 }
 
-langButtons.en.addEventListener("click", () => setLanguage("en"));
-langButtons.lv.addEventListener("click", () => setLanguage("lv"));
-langButtons.ru.addEventListener("click", () => setLanguage("ru"));
+// Every language has a crawlable URL. Preserve campaign parameters and anchors.
+for (const [lang, link] of Object.entries(langButtons)) {
+  const destination = new URL(link.href);
+  const parameters = new URLSearchParams(window.location.search);
+  parameters.delete("lang");
+  parameters.delete("ui");
+  destination.search = parameters.toString();
+  destination.hash = window.location.hash;
+  link.href = destination.href;
+  link.addEventListener("click", () => {
+    try { localStorage.setItem("tolf-language", lang); } catch {}
+  });
+}
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -416,26 +427,22 @@ const url = new URL(window.location.href);
 const requestedLanguage = ["en", "lv", "ru"].includes(url.searchParams.get("lang"))
   ? url.searchParams.get("lang")
   : null;
-const savedLanguage = localStorage.getItem("tolf-language");
-const browserLanguage = navigator.language.toLowerCase().startsWith("lv")
-  ? "lv"
-  : navigator.language.toLowerCase().startsWith("ru")
-    ? "ru"
-    : "en";
-
-installGuestExperience();
-setLanguage(
-  requestedLanguage ||
-  (["en", "lv", "ru"].includes(savedLanguage)
-    ? savedLanguage
-    : browserLanguage)
-);
-
-if (requestedLanguage || url.searchParams.has("ui")) {
+// Legacy links retain their explicit language on the new permanent URLs.
+// A language page always keeps the language declared in its static HTML.
+const isHomeAlias = url.pathname === "/" || url.pathname === "/index.html";
+if (isHomeAlias && requestedLanguage) {
+  url.pathname = "/" + requestedLanguage + "/";
+  url.searchParams.delete("lang");
+  url.searchParams.delete("ui");
+  window.location.replace(url.pathname + url.search + url.hash);
+} else if (url.searchParams.has("lang") || url.searchParams.has("ui")) {
   url.searchParams.delete("lang");
   url.searchParams.delete("ui");
   window.history.replaceState({}, "", url.pathname + url.search + url.hash);
 }
+
+installGuestExperience();
+setLanguage(document.documentElement.lang);
 
 applyRoutes();
 keepMobileSignInVisible();

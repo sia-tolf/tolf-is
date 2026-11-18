@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tolf.is/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://tolf.is/en/</loc><xhtml:link rel="alternate" hreflang="en" href="https://tolf.is/en/"/><xhtml:link rel="alternate" hreflang="ru" href="https://tolf.is/ru/"/><xhtml:link rel="alternate" hreflang="lv" href="https://tolf.is/lv/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/"/></url>
+  <url><loc>https://tolf.is/ru/</loc><xhtml:link rel="alternate" hreflang="en" href="https://tolf.is/en/"/><xhtml:link rel="alternate" hreflang="ru" href="https://tolf.is/ru/"/><xhtml:link rel="alternate" hreflang="lv" href="https://tolf.is/lv/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/"/></url>
+  <url><loc>https://tolf.is/lv/</loc><xhtml:link rel="alternate" hreflang="en" href="https://tolf.is/en/"/><xhtml:link rel="alternate" hreflang="ru" href="https://tolf.is/ru/"/><xhtml:link rel="alternate" hreflang="lv" href="https://tolf.is/lv/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/"/></url>
 </urlset>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-tolf-ui="home">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="light dark" name="color-scheme"/>
+<meta content="#f5f5f7" name="theme-color"/>
+<title>TOLF Network Suite — VPN, Smart DNS and configuration tools</title>
+
+
+
+
+
+<meta content="index,follow" name="robots"/>
+
+<link href="/styles.css?v=language-links-20261118" rel="stylesheet"/>
+<style>
+.brand { gap: 8px; }
+.brand-mark {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+}
+.product-grid { align-items: stretch; }
+.card { min-height: 0; }
+@media (min-width: 801px) {
+  .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; }
+  .product-grid > .card { height: 100%; }
+  .product-grid > .card .card-link { margin-top: auto; padding-top: 24px; }
+}
+.hero { padding: 40px 0 48px; }
+#products { padding-bottom: 48px; }
+#supported-systems { padding-bottom: 46px; }
+.language :is(button, a).active {
+  color: var(--text);
+  background: #d9d9df;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.10);
+}
+.signup-link {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line-strong));
+  border-radius: 10px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.signup-link:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line-strong));
+}
+
+.smart-dns-requirement {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 18px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--secondary);
+  font-size: 13px;
+  font-weight: 560;
+}
+.smart-dns-card:not(.smart-dns-enabled) .smart-dns-link {
+  color: var(--tertiary);
+  cursor: default;
+  pointer-events: none;
+}
+.smart-dns-card.smart-dns-enabled .smart-dns-requirement {
+  display: none;
+}
+.supported-panel {
+  padding: 28px 30px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.supported-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.supported-head h2 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  font-weight: 650;
+}
+.supported-head p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--secondary);
+  text-align: right;
+  font-size: 16px;
+}
+.supported-os {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.supported-os div {
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--soft);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 580;
+}
+.supported-note {
+  margin: 14px 0 0;
+  color: var(--secondary);
+  font-size: 14px;
+}
+.account-panel { padding: 32px; }
+.account-features {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 28px;
+  border: 0;
+}
+.account-feature,
+.account-feature + .account-feature {
+  padding: 0;
+  border: 0;
+}
+.account-feature strong {
+  margin-bottom: 7px;
+  font-size: 17px;
+}
+.account-feature span { display: block; }
+.account-bottom { margin-top: 24px; }
+@media (prefers-color-scheme: dark) {
+  .language :is(button, a).active {
+    background: #3a3a3c;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+}
+@media (max-width: 800px) {
+  .hero { padding: 40px 0 46px; }
+  #products { padding-bottom: 42px; }
+  #supported-systems { padding-bottom: 42px; }
+  .account-features { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+}
+@media (max-width: 520px) {
+  .hero { padding: 36px 0 42px; }
+  html[lang="ru"] h1 { font-size: clamp(40px, 11.5vw, 46px); letter-spacing: -0.055em; }
+  .signup-link { min-height: 34px; padding: 0 6px; font-size: 13px; }
+  #products { padding-bottom: 34px; }
+  #supported-systems { padding-bottom: 34px; }
+  .supported-panel { padding: 23px; border-radius: 20px; }
+  .supported-head { display: block; margin-bottom: 17px; }
+  .supported-head p { margin-top: 10px; text-align: left; }
+  .supported-os { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .supported-os div { padding: 11px 10px; }
+  .account-panel { padding: 25px; }
+  .account-features { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 18px; }
+  .account-feature,
+  .account-feature + .account-feature { padding: 0; border: 0; }
+}
+ .product-title span{display:block;}
+</style>
+<link rel="stylesheet" href="/tolf-buttons.20260917-3.css?v=language-links-20261118">
+<script defer src="/tolf-wordmark.20260917-3.js"></script>
+<link rel="stylesheet" href="/tolf-header.20260919-1.css?v=language-links-20261118">
+<link rel="stylesheet" href="/freedom.css?v=20261027-7">
+<meta name="description" content="TOLF brings together VPN access, encrypted Smart DNS and a free VPN and DNS profile configurator for your devices.">
+<link rel="canonical" href="https://tolf.is/en/">
+<link rel="alternate" hreflang="en" href="https://tolf.is/en/">
+<link rel="alternate" hreflang="ru" href="https://tolf.is/ru/">
+<link rel="alternate" hreflang="lv" href="https://tolf.is/lv/">
+<link rel="alternate" hreflang="x-default" href="https://tolf.is/en/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tolf.is/en/">
+<meta property="og:title" content="TOLF Network Suite — VPN, Smart DNS and configuration tools">
+<meta property="og:description" content="TOLF brings together VPN access, encrypted Smart DNS and a free VPN and DNS profile configurator for your devices.">
+<script id="tolf-search-metadata" type="application/json">{"en": ["TOLF Network Suite — VPN, Smart DNS and configuration tools", "TOLF brings together VPN access, encrypted Smart DNS and a free VPN and DNS profile configurator for your devices."], "ru": ["TOLF Network Suite — VPN, Smart DNS и конфигуратор", "VPN с оплатой за гигабайты, зашифрованный Smart DNS и бесплатный конфигуратор профилей VPN и DNS для ваших устройств."], "lv": ["TOLF Network Suite — VPN, Smart DNS un konfigurators", "VPN ar maksu par gigabaitiem, šifrēts Smart DNS un bezmaksas VPN un DNS profilu konfigurators jūsu ierīcēm."]}</script>
+<script defer src="/search-metadata.js?v=20261109"></script>
+<meta property="og:locale" content="en_GB">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "@id": "https://tolf.is/en/#webpage", "url": "https://tolf.is/en/", "name": "TOLF Network Suite — VPN, Smart DNS and configuration tools", "description": "TOLF brings together VPN access, encrypted Smart DNS and a free VPN and DNS profile configurator for your devices.", "inLanguage": "en", "isPartOf": {"@type": "WebSite", "@id": "https://tolf.is/#website", "url": "https://tolf.is/", "name": "TOLF Network Suite"}}</script>
+</head>
+<body>
+<header class="topbar">
+<div class="shell topbar-inner">
+<a aria-label="TOLF home" class="brand" href="/en/"><img class="brand-mark" src="/tolf-logo-star.svg?v=20260921-eight-ray" alt="" aria-hidden="true">TOLF</a>
+<p class="freedom-motto" lang="en">Tolf is freedom</p>
+<div class="top-actions">
+<nav aria-label="Language" class="tolf-language language">
+<a id="lang-en" href="/en/" lang="en" hreflang="en" aria-label="English" class="active" aria-current="page">EN</a>
+<a id="lang-ru" href="/ru/" lang="ru" hreflang="ru" aria-label="Русский">RU</a>
+<a id="lang-lv" href="/lv/" lang="lv" hreflang="lv" aria-label="Latviešu">LV</a>
+</nav>
+<a class="account-link" data-en="Sign in" data-lv="Pieteikties" data-ru="Войти" href="https://vpn.tolf.is/auth/?mode=signin&amp;next=home">Sign in</a>
+<a class="signup-link" data-en="Sign up" data-lv="Reģistrēties" data-ru="Регистрация" href="https://vpn.tolf.is/auth/?mode=signup&amp;next=home">Sign up</a>
+</div>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="shell">
+<p class="eyebrow" data-en="TOLF Network Suite" data-lv="TOLF Network Suite" data-ru="TOLF Network Suite">TOLF Network Suite</p>
+<h1 data-en="Your network&lt;br&gt;Your devices&lt;br&gt;Your control" data-lv="Jūsu tīkls&lt;br&gt;Jūsu ierīces&lt;br&gt;Jūsu kontrole" data-ru="Ваша сеть&lt;br&gt;Ваши устройства&lt;br&gt;Ваш контроль">Your network<br>Your devices<br>Your control</h1>
+<p class="hero-copy" data-en="Private networking tools designed to stay simple." data-lv="Privātā tīkla rīki, kas veidoti vienkāršai lietošanai." data-ru="Сетевые инструменты, в которых всё необходимое остаётся простым.">Private networking tools designed to stay simple.</p>
+</div>
+</section>
+<section class="section" id="products">
+<div class="shell">
+<div class="section-heading">
+<h2 data-en="Network tools" data-lv="Tīkla rīki" data-ru="Сетевые инструменты">Network tools</h2>
+<p data-en="Use only what you need. Each service works on its own and fits into one TOLF account." data-lv="Izmantojiet tikai to, kas nepieciešams. Katrs pakalpojums darbojas patstāvīgi un ir pieejams vienā TOLF kontā." data-ru="Используйте только то, что нужно. Каждый сервис работает самостоятельно и входит в единый аккаунт TOLF.">Use only what you need. Each service works on its own and fits into one TOLF account.</p>
+</div>
+<div class="product-grid">
+<article class="card"><h3 class="product-title"><span>TOLF</span><span>VPN</span></h3><p data-en="Connect to the TOLF network and manage access for your devices." data-lv="Pievienojieties TOLF tīklam un pārvaldiet piekļuvi savām ierīcēm." data-ru="Подключитесь к сети TOLF и управляйте доступом для своих устройств.">Connect to the TOLF network and manage access for your devices.</p><a class="card-link" data-en="Open VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="vpn" data-ru="Открыть VPN &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://vpn.tolf.is/?lang=en">Open VPN <span class='arrow'>→</span></a></article>
+<article class="card"><h3 class="product-title"><span>TOLF</span><span>Configurator</span></h3><p data-en="Set up a VPN connection or DNS on your device. Enter the settings to create a profile you can download and install. Wi-Fi profiles are being prepared." data-lv="Iestatiet VPN savienojumu vai DNS savā ierīcē. Ievadiet parametrus — konfigurators izveidos lejupielādējamu un instalējamu profilu. Wi-Fi profili tiek gatavoti." data-ru="Настройте подключение к VPN или DNS на своём устройстве. Укажите параметры — конфигуратор создаст готовый профиль для скачивания и установки. Профили Wi-Fi готовятся.">Set up a VPN connection or DNS on your device. Enter the settings to create a profile you can download and install. Wi-Fi profiles are being prepared.</p><a class="card-link" data-en="Open Configurator &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt konfiguratoru &lt;span class='arrow'&gt;→&lt;/span&gt;" data-route="configurator" data-ru="Открыть конфигуратор &lt;span class='arrow'&gt;→&lt;/span&gt;" href="https://configurator.tolf.is/?lang=en">Open Configurator <span class='arrow'>→</span></a></article>
+<article class="card smart-dns-card" data-smart-dns-card><h3 class="product-title"><span>TOLF</span><span>Smart DNS</span></h3><p data-en="Encrypted DNS with automatic regional routing, personal devices and TOLF-managed settings." data-lv="Šifrēts DNS ar automātisku reģionālo maršrutēšanu, personīgajām ierīcēm un TOLF pārvaldītiem iestatījumiem." data-ru="Зашифрованный DNS с автоматической региональной маршрутизацией, персональными устройствами и настройками TOLF.">Encrypted DNS with automatic regional routing, personal devices and TOLF-managed settings.</p><span class="smart-dns-requirement" data-en="TOLF account required" data-lv="Nepieciešams TOLF konts" data-ru="Требуется аккаунт TOLF">TOLF account required</span><a class="card-link smart-dns-link" data-smart-dns-link data-en="Open Smart DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-lv="Atvērt Smart DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" data-ru="Открыть Smart DNS &lt;span class='arrow'&gt;→&lt;/span&gt;" href="#" aria-disabled="true" tabindex="-1">Open Smart DNS <span class='arrow'>→</span></a></article>
+</div>
+</div>
+</section>
+<section class="section" id="supported-systems">
+<div class="shell">
+<div class="supported-panel">
+<div class="supported-head">
+<h2 data-en="Supported systems" data-lv="Atbalstītās sistēmas" data-ru="Поддерживаемые системы">Supported systems</h2>
+<p data-en="TOLF products are built for the operating systems you already use." data-lv="TOLF produkti ir veidoti operētājsistēmām, kuras jūs jau izmantojat." data-ru="Продукты TOLF рассчитаны на операционные системы, которыми вы уже пользуетесь.">TOLF products are built for the operating systems you already use.</p>
+</div>
+<div class="supported-os" aria-label="Supported operating systems">
+<div>iOS</div>
+<div>iPadOS</div>
+<div>Android</div>
+<div>Windows</div>
+</div>
+<p class="supported-note" data-en="Availability and minimum OS versions vary by product." data-lv="Pieejamība un minimālā operētājsistēmas versija ir atkarīga no produkta." data-ru="Доступность и минимальная версия ОС зависят от конкретного продукта.">Availability and minimum OS versions vary by product.</p>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="shell">
+<div class="section-heading"><h2 data-en="Coming next" data-lv="Drīzumā" data-ru="Дальше">Coming next</h2><p data-en="Services currently being prepared for the TOLF suite." data-lv="Pakalpojumi, kas pašlaik tiek gatavoti TOLF komplektam." data-ru="Сервисы, которые готовятся к включению в TOLF.">Services currently being prepared for the TOLF suite.</p></div>
+<div class="coming-grid">
+<article class="coming-card"><span class="coming-badge" data-en="In development" data-lv="Izstrādē" data-ru="В разработке">In development</span><h3 data-en="Private Network" data-lv="Private Network" data-ru="Private Network">Private Network</h3><p data-en="Connect your computers and mobile devices into one private network." data-lv="Apvienojiet datorus un mobilās ierīces vienā privātā tīklā." data-ru="Объединяйте компьютеры и мобильные устройства в одну частную сеть.">Connect your computers and mobile devices into one private network.</p></article>
+<article class="coming-card"><span class="coming-badge" data-en="In development" data-lv="Izstrādē" data-ru="В разработке">In development</span><h3 data-en="Remote Access" data-lv="Remote Access" data-ru="Remote Access">Remote Access</h3><p data-en="Reach your computers securely without exposing remote desktop services to the internet." data-lv="Droši piekļūstiet saviem datoriem, neatverot attālās darbvirsmas pakalpojumus internetam." data-ru="Безопасный доступ к своим компьютерам без публикации удалённого рабочего стола в интернете.">Reach your computers securely without exposing remote desktop services to the internet.</p></article>
+</div>
+</div>
+</section>
+</main>
+<footer><div class="shell footer-inner"><div>© <span id="year"></span> TOLF</div><nav aria-label="Footer" class="footer-links"><a href="https://vpn.tolf.is/en/" data-vpn-overview>About TOLF VPN</a><a data-en="Status" data-lv="Statuss" data-route="status" data-ru="Статус" href="#">Status</a><a data-en="Privacy" data-lv="Privātums" data-route="privacy" data-ru="Конфиденциальность" href="https://vpn.tolf.is/privacy.html?lang=en">Privacy</a><a data-en="Terms and Conditions" data-lv="Pakalpojuma noteikumi" data-route="terms" data-ru="Условия сервиса" href="https://vpn.tolf.is/terms.html?lang=en">Terms and Conditions</a><a data-en="Contact" data-lv="Kontakti" data-route="contact" data-ru="Контакты" href="https://vpn.tolf.is/contact.html?lang=en">Contact</a></nav></div></footer>
+<script defer src="/passkey-session-label.20260917-1.js"></script>
+<script defer src="/app.js?v=localized-home-20261118"></script>
+<script defer src="/account-state.js?v=account-label-20261004-1"></script>
+<script defer src="/chatwoot-support.js?v=persistent-notice-20261109"></script>
+</body>
+</html>

@@ -44,6 +44,10 @@ function fitHeroTitle() {
 
 function localizedRoute(base) {
   const url = new URL(base);
+  if (url.hostname === "vpn.tolf.is" && ["/privacy.html", "/terms.html", "/contact.html"].includes(url.pathname)) {
+    url.pathname = "/" + document.documentElement.lang + url.pathname;
+    return url.toString();
+  }
   url.searchParams.set("lang", document.documentElement.lang);
   return url.toString();
 }

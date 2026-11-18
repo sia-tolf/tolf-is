@@ -33,6 +33,8 @@ LABELS = {
 
 def localized_url(url, language):
     parts = urlsplit(url)
+    if parts.netloc == "vpn.tolf.is" and parts.path in ("/privacy.html", "/terms.html", "/contact.html"):
+        return "https://vpn.tolf.is/" + language + parts.path
     query = dict(parse_qsl(parts.query))
     query["lang"] = language
     return urlunsplit(parts._replace(query=urlencode(query)))

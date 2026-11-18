@@ -1,6 +1,8 @@
 """Build crawlable visitor sitemaps in English, Russian and Latvian."""
 from pathlib import Path
 from html import escape
+import re
+from public_page_shell import document
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +22,7 @@ def render(lang):
         return f'<li><a href="{escape(url, quote=True)}">{escape(label)}</a></li>'
     services = link(f'https://vpn.tolf.is/{lang}/', c[6]) + link(f'https://configurator.tolf.is/?lang={lang}', c[7]) + link(f'https://smartdns.tolf.is/?lang={lang}', c[8])
     support = link(f'https://vpn.tolf.is/help.html?lang={lang}', c[9]) + link(f'https://vpn.tolf.is/{lang}/contact.html', c[10]) + link(f'https://vpn.tolf.is/{lang}/terms.html', c[11]) + link(f'https://vpn.tolf.is/privacy.html?lang={lang}', c[12])
-    return f'''<!doctype html>
+    page = f'''<!doctype html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{c[0]} — TOLF Network Suite</title><meta name="description" content="{c[1]}"><meta name="robots" content="index,follow">
 <link rel="canonical" href="{canonical}">{alternates}<link rel="alternate" hreflang="x-default" href="https://tolf.is/en/sitemap.html">
@@ -31,6 +33,13 @@ def render(lang):
 <div class="map-grid"><section class="map-card"><h2>{c[3]}</h2><ul>{services}</ul></section><section class="map-card"><h2>{c[4]}</h2><ul>{support}</ul></section></div>
 <footer class="map-footer"><a href="/sitemap.xml">{c[13]}</a></footer></main></body></html>
 '''
+    head = re.search(r'<head>(.*?)</head>', page, re.S)[1]
+    head = re.sub(r'<style>.*?</style>', '', head, flags=re.S)
+    head = re.sub(r'<link[^>]*rel="stylesheet"[^>]*>', '', head)
+    head = re.sub(r'<meta[^>]*(?:charset=|name="viewport")[^>]*>', '', head)
+    content = re.search(r'<main[^>]*>(.*?)</main>', page, re.S)[1]
+    content = content.replace(f'https://vpn.tolf.is/privacy.html?lang={lang}',f'https://vpn.tolf.is/{lang}/privacy.html')
+    return document(lang, head, content, {l:f'https://tolf.is/{l}/sitemap.html' for l in LANGS})
 
 for lang in LANGS:
     (ROOT / lang / 'sitemap.html').write_text(render(lang))

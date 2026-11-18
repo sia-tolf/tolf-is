@@ -7,6 +7,7 @@ The root homepage is an English alias with /en/ as its canonical URL.
 import html
 import json
 import re
+import runpy
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -63,6 +64,8 @@ class HomepageParser(HTMLParser):
             updated = re.sub(r'href="[^"]*"', 'href="' + html.escape(localized_url(ROUTES[route], self.language), quote=True) + '"', updated)
         if "data-vpn-overview" in attrs:
             updated = re.sub(r'href="[^"]*"', f'href="https://vpn.tolf.is/{self.language}/"', updated)
+        if "data-sitemap-link" in attrs:
+            updated = re.sub(r'href="[^"]*"', f'href="/{self.language}/sitemap.html"', updated)
         if attrs.get("class") == "brand":
             updated = updated.replace('href="/"', f'href="/{self.language}/"')
         if attrs.get("id") == f"lang-{self.language}":
@@ -131,6 +134,7 @@ def main():
     alternates += '<xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/"/>'
     entries = '\n'.join(f'  <url><loc>https://tolf.is/{lang}/</loc>{alternates}</url>' for lang in LANGUAGES)
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + entries + '\n</urlset>\n')
+    runpy.run_path(str(ROOT / 'scripts/build-sitemap-pages.py'))
 
 
 if __name__ == "__main__":

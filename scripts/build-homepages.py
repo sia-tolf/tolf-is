@@ -66,6 +66,8 @@ class HomepageParser(HTMLParser):
             updated = re.sub(r'href="[^"]*"', 'href="' + html.escape(localized_url(ROUTES[route], self.language), quote=True) + '"', updated)
         if "data-vpn-overview" in attrs or "data-payment-overview" in attrs:
             updated = re.sub(r'href="[^"]*"', f'href="https://vpn.tolf.is/{self.language}/"', updated)
+        if "data-guides-link" in attrs:
+            updated = re.sub(r'href="[^"]*"', f'href="https://vpn.tolf.is/{self.language}/guides/"', updated)
         if "data-why-link" in attrs:
             updated = re.sub(r'href="[^"]*"', f'href="/{self.language}/why-tolf.html"', updated)
         if "data-sitemap-link" in attrs:

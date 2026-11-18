@@ -164,7 +164,7 @@ function installGuestExperience() {
       badge.dataset.ru = "Требуется вход";
       badge.dataset.lv = "Nepieciešama pieteikšanās";
       badge.textContent = "Sign in required";
-      card.appendChild(badge);
+      card.querySelector(".product-heading").appendChild(badge);
     }
   });
 
@@ -264,9 +264,10 @@ function installGuestExperience() {
 
       .service-lock-badge {
         display: none;
-        position: absolute;
-        top: 20px;
-        right: 20px;
+        position: static;
+        justify-self: center;
+        grid-row: 2;
+        max-width: 100%;
         min-height: 28px;
         align-items: center;
         padding: 0 9px;
@@ -330,10 +331,6 @@ function installGuestExperience() {
           width: 100%;
         }
 
-        .service-lock-badge {
-          top: 16px;
-          right: 16px;
-        }
       }
     `;
     document.head.appendChild(style);

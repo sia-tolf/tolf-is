@@ -248,6 +248,17 @@
       box-shadow: var(--shadow);
     }
 
+    .product-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+    }
+
+    body.account-guest .product-heading {
+      grid-template-rows: auto 28px;
+      row-gap: 12px;
+    }
+
     .card h3 {
       margin: 0;
       font-size: 32px;

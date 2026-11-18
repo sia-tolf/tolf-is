@@ -484,3 +484,5 @@
 .why-tolf-button{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:14px 24px;border:1px solid #7d1534;border-radius:15px;background:#7d1534;color:#fff;font-size:20px;font-weight:650;text-align:center;text-decoration:none;transition:background .15s ease}
 .why-tolf-button:hover{background:#68112b;border-color:#68112b;color:#fff}
 .why-tolf-button:focus-visible{outline:3px solid #7d1534;outline-offset:4px}
+
+.payment-info-link{display:inline-block;align-self:flex-start;margin-top:18px;color:#214680;font-size:16px;font-weight:600;text-underline-offset:3px}.payment-info-link:focus-visible{outline:2px solid currentColor;outline-offset:4px}

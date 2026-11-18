@@ -25,9 +25,9 @@ ROUTES = {
     "contact": "https://vpn.tolf.is/contact.html",
 }
 LABELS = {
-    "en": {"home": "TOLF home", "language": "Language", "systems": "Supported operating systems", "footer": "Footer", "overview": "About TOLF VPN", "locale": "en_GB"},
-    "ru": {"home": "Главная TOLF", "language": "Язык", "systems": "Поддерживаемые операционные системы", "footer": "Ссылки", "overview": "О TOLF VPN", "locale": "ru_RU"},
-    "lv": {"home": "TOLF sākumlapa", "language": "Valoda", "systems": "Atbalstītās operētājsistēmas", "footer": "Saites", "overview": "Par TOLF VPN", "locale": "lv_LV"},
+    "en": {"home": "TOLF home", "language": "Language", "systems": "Supported operating systems", "footer": "Footer", "overview": "VPN billed by traffic", "locale": "en_GB"},
+    "ru": {"home": "Главная TOLF", "language": "Язык", "systems": "Поддерживаемые операционные системы", "footer": "Ссылки", "overview": "VPN с оплатой за трафик", "locale": "ru_RU"},
+    "lv": {"home": "TOLF sākumlapa", "language": "Valoda", "systems": "Atbalstītās operētājsistēmas", "footer": "Saites", "overview": "VPN ar maksu par datu apjomu", "locale": "lv_LV"},
 }
 
 
@@ -64,7 +64,7 @@ class HomepageParser(HTMLParser):
         route = attrs.get("data-route")
         if route in ROUTES:
             updated = re.sub(r'href="[^"]*"', 'href="' + html.escape(localized_url(ROUTES[route], self.language), quote=True) + '"', updated)
-        if "data-vpn-overview" in attrs:
+        if "data-vpn-overview" in attrs or "data-payment-overview" in attrs:
             updated = re.sub(r'href="[^"]*"', f'href="https://vpn.tolf.is/{self.language}/"', updated)
         if "data-why-link" in attrs:
             updated = re.sub(r'href="[^"]*"', f'href="/{self.language}/why-tolf.html"', updated)

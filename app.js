@@ -278,7 +278,7 @@ function installGuestExperience() {
       }
 
       body.account-guest .protected-service {
-        opacity: .58;
+        opacity: 1;
       }
 
       body.account-guest .protected-service .service-lock-badge {

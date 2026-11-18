@@ -12,7 +12,7 @@
     document.querySelector('meta[property="og:description"]').content = description;
     for (const link of document.querySelectorAll('[data-vpn-overview]')) {
       link.href = 'https://vpn.tolf.is/' + lang + '/';
-      link.textContent = {en:'About TOLF VPN',ru:'О TOLF VPN',lv:'Par TOLF VPN'}[lang];
+      link.textContent = {en:'VPN billed by traffic',ru:'VPN с оплатой за трафик',lv:'VPN ar maksu par datu apjomu'}[lang];
     }
   }
   update();

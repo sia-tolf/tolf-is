@@ -397,7 +397,9 @@ function tightenHeroSpacing() {
   if (!hero) return;
 
   if (window.matchMedia("(max-width: 520px)").matches) {
-    hero.style.padding = "36px 0 42px";
+    hero.style.padding = "20px 0 42px";
+  } else if (window.matchMedia("(max-width: 700px)").matches) {
+    hero.style.padding = "20px 0 46px";
   } else if (window.matchMedia("(max-width: 800px)").matches) {
     hero.style.padding = "40px 0 46px";
   } else {

@@ -410,6 +410,8 @@
       gap: 32px;
       box-sizing: border-box;
       padding-inline-end: 96px;
+      font-weight: 600;
+      color: var(--text);
     }
 
     .footer-inner > div { flex-shrink: 0; }

@@ -406,14 +406,19 @@
     .footer-inner {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      justify-content: flex-start;
+      gap: 32px;
+      box-sizing: border-box;
+      padding-inline-end: 96px;
     }
+
+    .footer-inner > div { flex-shrink: 0; }
 
     .footer-links {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      min-width: 0;
     }
 
     .footer-links a:hover { color: var(--text); }

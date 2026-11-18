@@ -42,4 +42,25 @@
     <xhtml:link rel="alternate" hreflang="lv" href="https://tolf.is/lv/sitemap.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/sitemap.html" />
   </url>
+  <url>
+    <loc>https://tolf.is/en/why-tolf.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tolf.is/en/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tolf.is/ru/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="lv" href="https://tolf.is/lv/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/why-tolf.html" />
+  </url>
+  <url>
+    <loc>https://tolf.is/ru/why-tolf.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tolf.is/en/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tolf.is/ru/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="lv" href="https://tolf.is/lv/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/why-tolf.html" />
+  </url>
+  <url>
+    <loc>https://tolf.is/lv/why-tolf.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tolf.is/en/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tolf.is/ru/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="lv" href="https://tolf.is/lv/why-tolf.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tolf.is/en/why-tolf.html" />
+  </url>
 </urlset>

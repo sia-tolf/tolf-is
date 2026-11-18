@@ -21,7 +21,7 @@ def render(lang):
     def link(url, label):
         return f'<li><a href="{escape(url, quote=True)}">{escape(label)}</a></li>'
     services = link(f'https://vpn.tolf.is/{lang}/', c[6]) + link(f'https://configurator.tolf.is/?lang={lang}', c[7]) + link(f'https://smartdns.tolf.is/?lang={lang}', c[8])
-    support = link(f'https://vpn.tolf.is/help.html?lang={lang}', c[9]) + link(f'https://vpn.tolf.is/{lang}/contact.html', c[10]) + link(f'https://vpn.tolf.is/{lang}/terms.html', c[11]) + link(f'https://vpn.tolf.is/privacy.html?lang={lang}', c[12])
+    support = link(f'https://tolf.is/{lang}/why-tolf.html', {'en':'Why TOLF?', 'ru':'Почему TOLF?', 'lv':'Kāpēc TOLF?'}[lang]) + link(f'https://vpn.tolf.is/help.html?lang={lang}', c[9]) + link(f'https://vpn.tolf.is/{lang}/contact.html', c[10]) + link(f'https://vpn.tolf.is/{lang}/terms.html', c[11]) + link(f'https://vpn.tolf.is/privacy.html?lang={lang}', c[12])
     page = f'''<!doctype html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{c[0]} — TOLF Network Suite</title><meta name="description" content="{c[1]}"><meta name="robots" content="index,follow">

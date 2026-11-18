@@ -66,6 +66,8 @@ class HomepageParser(HTMLParser):
             updated = re.sub(r'href="[^"]*"', 'href="' + html.escape(localized_url(ROUTES[route], self.language), quote=True) + '"', updated)
         if "data-vpn-overview" in attrs:
             updated = re.sub(r'href="[^"]*"', f'href="https://vpn.tolf.is/{self.language}/"', updated)
+        if "data-why-link" in attrs:
+            updated = re.sub(r'href="[^"]*"', f'href="/{self.language}/why-tolf.html"', updated)
         if "data-sitemap-link" in attrs:
             updated = re.sub(r'href="[^"]*"', f'href="/{self.language}/sitemap.html"', updated)
         if attrs.get("class") == "brand":
@@ -137,6 +139,7 @@ def main():
     entries = '\n'.join(f'  <url><loc>https://tolf.is/{lang}/</loc>{alternates}</url>' for lang in LANGUAGES)
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + entries + '\n</urlset>\n')
     runpy.run_path(str(ROOT / 'scripts/build-sitemap-pages.py'))
+    runpy.run_path(str(ROOT / 'scripts/build-why-pages.py'))
 
 
 if __name__ == "__main__":

@@ -255,7 +255,7 @@ function installGuestExperience() {
       .start-card {display:flex; flex-direction:column; align-items:flex-start; padding:22px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface-solid);}
       .start-card h2 {margin:0; font-size:22px}
       .start-card p {margin:10px 0 20px; color:var(--secondary)}
-      .start-card .button {margin-top:auto}
+      .start-card .button {margin-top:auto; width:100%; box-sizing:border-box; justify-content:center; text-align:center;}
       .start-card [hidden] {display:none}
       .protected-service {
         transition: opacity .16s ease;

@@ -135,6 +135,69 @@ function applyRoutes() {
   refreshAccountLinks();
 }
 
+function installStartOptions(section) {
+  const words = {
+    ru: {start:"Начать работу с TOLF", trial:"Попробовать бесплатно", help:"1 ГБ VPN-трафика без ограничения по времени. Один раз на аккаунт.", claim:"Получить 1 ГБ бесплатно", paid:"Купить трафик", paidHelp:"Выберите объём VPN-трафика. Оплаченные гигабайты не сгорают в конце месяца.", buy:"Выбрать пакет", loading:"Проверяем пробный пакет…", balance:"Остаток пробного трафика", unit:"ГБ", view:"Посмотреть остаток", unavailable:"Пробный пакет недоступен для этого аккаунта.", error:"Не удалось проверить остаток.", check:"Открыть пробный пакет"},
+    en: {start:"Start with TOLF", trial:"Try it for free", help:"1 GB of VPN traffic with no time limit. Once per account.", claim:"Get 1 GB for free", paid:"Buy traffic", paidHelp:"Choose how much VPN traffic you need. Purchased data carries over each month.", buy:"Choose a package", loading:"Checking your trial…", balance:"Trial traffic remaining", unit:"GB", view:"View balance", unavailable:"The trial is unavailable for this account.", error:"Could not check your balance.", check:"Open trial package"},
+    lv: {start:"Sākt lietot TOLF", trial:"Izmēģināt bez maksas", help:"1 GB VPN datu bez laika ierobežojuma. Vienu reizi katram kontam.", claim:"Saņemt 1 GB bez maksas", paid:"Pirkt VPN datus", paidHelp:"Izvēlieties VPN datu apjomu. Apmaksāto datu atlikums saglabājas arī nākamajā mēnesī.", buy:"Izvēlēties datu paku", loading:"Pārbaudām izmēģinājuma paku…", balance:"Atlikušie izmēģinājuma dati", unit:"GB", view:"Skatīt atlikumu", unavailable:"Šim kontam izmēģinājuma paka nav pieejama.", error:"Neizdevās pārbaudīt atlikumu.", check:"Atvērt izmēģinājuma paku"}
+  };
+  const lang = document.documentElement.lang;
+  const t = words[lang] || words.en;
+  section.innerHTML = `<div class="shell"><details class="start-options">
+    <summary class="button primary">${t.start}</summary>
+    <div class="start-grid">
+      <div class="start-card"><h2>${t.trial}</h2><p aria-live="polite"></p><a class="button" hidden></a></div>
+      <div class="start-card"><h2>${t.paid}</h2><p>${t.paidHelp}</p><a class="button primary">${t.buy}</a></div>
+    </div></details></div>`;
+  const details = section.querySelector("details");
+  const [trial, paid] = details.querySelectorAll("a");
+  const note = details.querySelector("p");
+  const billing = localizedRoute("https://vpn.tolf.is/billing/");
+  const trialUrl = localizedRoute("https://vpn.tolf.is/billing/?trial=1");
+  const register = "https://vpn.tolf.is/auth/?mode=signup&next=billing";
+  let pending = false;
+  async function refresh() {
+    if (!details.open || pending) return;
+    pending = true;
+    trial.hidden = true;
+    paid.removeAttribute("href");
+    note.textContent = t.loading;
+    try {
+      const response = await fetch(TOLF.api + "/account/trial-package", {
+        credentials:"include", cache:"no-store", signal:AbortSignal.timeout(8000)
+      });
+      const guest = response.status === 401;
+      if (!guest && !response.ok) throw new Error("trial unavailable");
+      const data = guest ? null : await response.json();
+      const pack = data?.trialPackage;
+      paid.href = guest ? localizedRoute(register) : billing;
+      trial.href = guest ? localizedRoute(register + "&purpose=trial") : trialUrl;
+      if (pack) {
+        const amount = new Intl.NumberFormat(lang, {maximumFractionDigits:3}).format(pack.balanceBytes / 1e9);
+        note.textContent = t.balance + " — " + amount + " " + t.unit;
+        trial.textContent = t.view;
+        trial.hidden = false;
+      } else if (guest || data.canClaim) {
+        note.textContent = t.help;
+        trial.textContent = t.claim;
+        trial.hidden = false;
+      } else {
+        note.textContent = t.unavailable;
+      }
+    } catch {
+      note.textContent = t.error;
+      trial.textContent = t.check;
+      trial.href = trialUrl;
+      trial.hidden = false;
+      paid.href = billing;
+    } finally {
+      pending = false;
+    }
+  }
+  details.addEventListener("toggle", refresh);
+  window.addEventListener("pageshow", refresh);
+}
+
 function installGuestExperience() {
   const productGrid = document.querySelector(".product-grid");
   const hero = document.querySelector(".hero");
@@ -172,42 +235,7 @@ function installGuestExperience() {
     const section = document.createElement("section");
     section.id = "guestAccess";
     section.className = "guest-access-section";
-    section.innerHTML = `
-      <div class="shell">
-        <div class="guest-access-panel">
-          <div class="guest-access-copy">
-            <h2
-              data-en="Start with TOLF"
-              data-ru="Начните работу с TOLF"
-              data-lv="Sāciet darbu ar TOLF"
-            >Start with TOLF</h2>
-            <p
-              data-en="Sign in to your account or create a new one to use TOLF services. IKEv2 Configurator is available without registration."
-              data-ru="Войдите в аккаунт или создайте новый, чтобы пользоваться сервисами TOLF. IKEv2 Configurator доступен без регистрации."
-              data-lv="Piesakieties kontā vai izveidojiet jaunu, lai izmantotu TOLF pakalpojumus. IKEv2 Configurator ir pieejams bez reģistrācijas."
-            >Sign in to your account or create a new one to use TOLF services. IKEv2 Configurator is available without registration.</p>
-          </div>
-          <div class="guest-access-actions">
-            <a
-              class="button"
-              data-route="account-signin"
-              data-en="Sign in"
-              data-ru="Войти"
-              data-lv="Pieteikties"
-              href="#"
-            >Sign in</a>
-            <a
-              class="button primary"
-              data-route="account-create"
-              data-en="Create account"
-              data-ru="Создать аккаунт"
-              data-lv="Izveidot kontu"
-              href="#"
-            >Create account</a>
-          </div>
-        </div>
-      </div>
-    `;
+    installStartOptions(section);
     hero.insertAdjacentElement("afterend", section);
   }
 
@@ -219,45 +247,14 @@ function installGuestExperience() {
         padding: 0 0 48px;
       }
 
-      .guest-access-panel {
-        padding: 26px 28px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 28px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--surface-solid);
-        box-shadow: var(--shadow);
-      }
-
-      .guest-access-copy {
-        min-width: 0;
-      }
-
-      .guest-access-copy h2 {
-        margin: 0;
-        font-size: 26px;
-        line-height: 1.08;
-        letter-spacing: -0.035em;
-        font-weight: 640;
-      }
-
-      .guest-access-copy p {
-        max-width: 680px;
-        margin: 9px 0 0;
-        color: var(--secondary);
-        font-size: 16px;
-        line-height: 1.45;
-      }
-
-      .guest-access-actions {
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
+      .start-options summary {cursor:pointer; width:fit-content; list-style:none;}
+      .start-options summary::-webkit-details-marker {display:none}
+      .start-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:16px; margin-top:18px;}
+      .start-card {display:flex; flex-direction:column; align-items:flex-start; padding:22px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface-solid);}
+      .start-card h2 {margin:0; font-size:22px}
+      .start-card p {margin:10px 0 20px; color:var(--secondary)}
+      .start-card .button {margin-top:auto}
+      .start-card [hidden] {display:none}
       .protected-service {
         transition: opacity .16s ease;
       }
@@ -290,45 +287,6 @@ function installGuestExperience() {
         color: var(--tertiary);
       }
 
-      body.account-authenticated .guest-access-section {
-        display: none;
-      }
-
-      @media (max-width: 800px) {
-        .guest-access-panel {
-          display: block;
-        }
-
-        .guest-access-actions {
-          margin-top: 20px;
-        }
-      }
-
-      @media (max-width: 520px) {
-        .guest-access-section {
-          padding-bottom: 34px;
-        }
-
-        .guest-access-panel {
-          padding: 22px;
-          border-radius: 20px;
-        }
-
-        .guest-access-copy h2 {
-          font-size: 24px;
-        }
-
-        .guest-access-actions {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 8px;
-        }
-
-        .guest-access-actions .button {
-          width: 100%;
-        }
-
-      }
     `;
     document.head.appendChild(style);
   }

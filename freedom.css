@@ -45,8 +45,8 @@ html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap:
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: auto 42px;
     column-gap: 14px;
-    row-gap: 2px;
-    padding-block: 2px;
+    row-gap: 0;
+    padding-block: 0 2px;
   }
   html[data-tolf-ui="home"] .topbar-inner > .brand {
     grid-column: 1;
@@ -60,6 +60,7 @@ html[data-tolf-ui="home"] body.account-authenticated .topbar-inner { column-gap:
     width: min(100%, 280px);
     padding: 0;
   }
+  html[data-tolf-ui="home"] .freedom-motto img { max-height: 64px; }
   html[data-tolf-ui="home"] .top-actions,
   html[data-tolf-ui="home"] body.account-authenticated .top-actions {
     display: flex;
@@ -191,20 +192,51 @@ html[data-tolf-ui="home"] footer {
   .footer-links a { white-space: nowrap; }
 }
 
-.footer-more[hidden] { display: none; }
+.footer-menu-toggle { display: none; }
 @media (max-width: 800px) {
-  .footer-more {
-    position: absolute;
-    right: 80px;
-    top: 4px;
+  .footer-inner.has-footer-menu {
+    position: relative;
+    overflow: visible;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0;
+  }
+  .has-footer-menu .footer-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     min-height: 40px;
-    padding: 0 8px;
-    border: 1px solid var(--tolf-outline);
-    border-radius: 10px;
-    background: var(--tolf-card);
-    color: var(--tolf-action-text);
+    padding: 4px 0;
+    border: 0;
+    background: transparent;
+    color: var(--tolf-ink);
     font: inherit;
-    font-weight: 600;
     cursor: pointer;
   }
+  .footer-menu-toggle::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: solid currentColor;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(225deg);
+  }
+  .menu-open .footer-menu-toggle::after { transform: rotate(45deg); }
+  .has-footer-menu .footer-links { display: none; }
+  .has-footer-menu.menu-open .footer-links {
+    display: grid;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    inset-inline: 0;
+    gap: 0;
+    padding: 4px 12px;
+    max-height: 55dvh;
+    overflow-y: auto;
+    background: var(--tolf-card);
+    border: 1px solid var(--tolf-line);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 14%);
+  }
+  .has-footer-menu .footer-links a { padding-block: 5px; white-space: normal; }
+  html[data-tolf-ui="home"] footer:has(.has-footer-menu) { padding-inline-end: 92px; }
 }

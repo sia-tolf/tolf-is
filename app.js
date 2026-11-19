@@ -416,31 +416,35 @@ window.addEventListener("resize", () => {
   fitHeroTitle();
 });
 
-function installFooterScrollButton() {
+function installFooterMenu() {
   const strip = document.querySelector("footer .footer-inner");
-  const links = strip.querySelector(".footer-links");
-  const more = document.createElement("button");
-  more.type = "button";
-  more.className = "footer-more";
-  more.textContent = ({ru:"Ещё ссылки", en:"More links", lv:"Vēl saites"})[document.documentElement.lang] + " ›";
-  links.id = "footer-navigation";
-  more.setAttribute("aria-controls", links.id);
-  more.hidden = true;
-  strip.after(more);
-
-  function update() {
-    const edge = strip.getBoundingClientRect().right;
-    more.hidden = getComputedStyle(strip).overflowX !== "auto" ||
-      links.lastElementChild.getBoundingClientRect().right <= edge + 1;
+  const nav = strip.querySelector(".footer-links");
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "footer-menu-toggle";
+  toggle.textContent = ({en:"Site links", ru:"Ссылки сайта", lv:"Vietnes saites"})[document.documentElement.lang];
+  nav.id = "footer-navigation";
+  toggle.setAttribute("aria-controls", nav.id);
+  function setOpen(open) {
+    strip.classList.toggle("menu-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
   }
-  more.addEventListener("click", () => {
-    const step = Math.max(60, strip.clientWidth - more.offsetWidth - 12);
-    strip.scrollBy({left:step, behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"});
+  setOpen(false);
+  strip.insertBefore(toggle, nav);
+  strip.classList.add("has-footer-menu");
+  toggle.addEventListener("click", () => setOpen(!strip.classList.contains("menu-open")));
+  document.addEventListener("click", event => {
+    if (!strip.contains(event.target) || event.target.closest(".footer-links a")) setOpen(false);
   });
-  strip.addEventListener("scroll", update, {passive:true});
-  const observer = new ResizeObserver(update);
-  observer.observe(strip);
-  observer.observe(links);
-  update();
+  strip.addEventListener("focusout", event => {
+    if (!strip.contains(event.relatedTarget)) setOpen(false);
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && strip.classList.contains("menu-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  matchMedia("(max-width: 800px)").addEventListener("change", () => setOpen(false));
 }
-installFooterScrollButton();
+installFooterMenu();

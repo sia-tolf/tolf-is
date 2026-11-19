@@ -133,3 +133,51 @@ html[data-tolf-ui="home"] .topbar {
     border-bottom-color: #60404d;
   }
 }
+
+/* Main VPN entry point, aligned with the hero on wide and narrow screens. */
+#guestAccess .start-options > summary {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 56px;
+  margin-inline: auto;
+  padding: 12px clamp(24px, 4vw, 44px);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border: 1px solid #63213e;
+  border-radius: 16px;
+  background: linear-gradient(115deg, #913955, #652441);
+  color: white;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.25;
+  font-weight: 650;
+  text-align: center;
+  box-shadow: 0 3px 10px rgb(91 32 59 / 18%);
+}
+#guestAccess .start-options > summary::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  transform: translateY(-2px) rotate(45deg);
+}
+#guestAccess .start-options[open] > summary::after {
+  transform: translateY(2px) rotate(225deg);
+}
+#guestAccess .start-options > summary:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+@media (hover: hover) {
+  #guestAccess .start-options > summary:hover { background: #702741; }
+}
+@media (prefers-color-scheme: dark) {
+  #guestAccess .start-options > summary { border-color: #bf7891; }
+}
+@media (max-width: 520px) {
+  #guestAccess .start-options > summary { width: 100%; }
+}

@@ -64,7 +64,7 @@ for lang, c in COPY.items():
     head += '<script type="application/ld+json">'+json.dumps(data,ensure_ascii=False)+'</script>'
     content = f'<h1>{c["title"]}</h1><p class="lead">{c["lead"]}</p>'
     content += ''.join(f'<section><h2>{escape(h)}</h2><p>{escape(p)}</p></section>' for h,p in c['sections'])
-    content += f'<section><h2>{c["next"]}</h2><p>{c["ending"]}</p><div class="next"><a class="button-link" href="https://vpn.tolf.is/{lang}/">{c["vpn"]}</a><a href="https://configurator.tolf.is/?lang={lang}">{c["config"]}</a></div></section>'
+    content += f'<section><h2>{c["next"]}</h2><p>{c["ending"]}</p></section>'
     (ROOT/lang/'why-tolf.html').write_text(document(lang,head,content,urls))
 
 ns='http://www.sitemaps.org/schemas/sitemap/0.9'

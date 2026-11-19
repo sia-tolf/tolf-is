@@ -190,3 +190,21 @@ html[data-tolf-ui="home"] footer {
   .footer-links { flex: none; flex-wrap: nowrap; gap: 18px; }
   .footer-links a { white-space: nowrap; }
 }
+
+.footer-more[hidden] { display: none; }
+@media (max-width: 800px) {
+  .footer-more {
+    position: absolute;
+    right: 80px;
+    top: 4px;
+    min-height: 40px;
+    padding: 0 8px;
+    border: 1px solid var(--tolf-outline);
+    border-radius: 10px;
+    background: var(--tolf-card);
+    color: var(--tolf-action-text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}

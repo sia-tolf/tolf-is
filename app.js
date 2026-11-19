@@ -415,3 +415,32 @@ window.addEventListener("resize", () => {
   tightenHeroSpacing();
   fitHeroTitle();
 });
+
+function installFooterScrollButton() {
+  const strip = document.querySelector("footer .footer-inner");
+  const links = strip.querySelector(".footer-links");
+  const more = document.createElement("button");
+  more.type = "button";
+  more.className = "footer-more";
+  more.textContent = ({ru:"Ещё ссылки", en:"More links", lv:"Vēl saites"})[document.documentElement.lang] + " ›";
+  links.id = "footer-navigation";
+  more.setAttribute("aria-controls", links.id);
+  more.hidden = true;
+  strip.after(more);
+
+  function update() {
+    const edge = strip.getBoundingClientRect().right;
+    more.hidden = getComputedStyle(strip).overflowX !== "auto" ||
+      links.lastElementChild.getBoundingClientRect().right <= edge + 1;
+  }
+  more.addEventListener("click", () => {
+    const step = Math.max(60, strip.clientWidth - more.offsetWidth - 12);
+    strip.scrollBy({left:step, behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"});
+  });
+  strip.addEventListener("scroll", update, {passive:true});
+  const observer = new ResizeObserver(update);
+  observer.observe(strip);
+  observer.observe(links);
+  update();
+}
+installFooterScrollButton();

@@ -135,7 +135,7 @@ function applyRoutes() {
   refreshAccountLinks();
 }
 
-function installStartOptions(section) {
+function installStartOptions(section, actions) {
   const words = {
     ru: {start:"Начать работу с TOLF", trial:"Попробовать бесплатно", help:"1 ГБ VPN-трафика без ограничения по времени. Один раз на аккаунт.", claim:"Получить 1 ГБ бесплатно", paid:"Купить трафик", paidHelp:"Выберите объём VPN-трафика. Оплаченные гигабайты не сгорают в конце месяца.", buy:"Выбрать пакет", loading:"Проверяем пробный пакет…", balance:"Остаток пробного трафика", unit:"ГБ", view:"Посмотреть остаток", unavailable:"Пробный пакет недоступен для этого аккаунта.", error:"Не удалось проверить остаток.", check:"Открыть пробный пакет"},
     en: {start:"Start with TOLF", trial:"Try it for free", help:"1 GB of VPN traffic with no time limit. Once per account.", claim:"Get 1 GB for free", paid:"Buy traffic", paidHelp:"Choose how much VPN traffic you need. Purchased data carries over each month.", buy:"Choose a package", loading:"Checking your trial…", balance:"Trial traffic remaining", unit:"GB", view:"View balance", unavailable:"The trial is unavailable for this account.", error:"Could not check your balance.", check:"Open trial package"},
@@ -143,21 +143,26 @@ function installStartOptions(section) {
   };
   const lang = document.documentElement.lang;
   const t = words[lang] || words.en;
-  section.innerHTML = `<div class="shell"><details class="start-options">
-    <summary class="button primary">${t.start}</summary>
-    <div class="start-grid">
+  const trigger = document.createElement("button");
+  trigger.type = "button";
+  trigger.className = "why-tolf-button start-tolf-button";
+  trigger.textContent = t.start;
+  trigger.setAttribute("aria-controls", section.id);
+  trigger.setAttribute("aria-expanded", "false");
+  actions.append(trigger);
+  section.hidden = true;
+  section.innerHTML = `<div class="start-grid">
       <div class="start-card"><h2>${t.trial}</h2><p aria-live="polite"></p><a class="button" hidden></a></div>
       <div class="start-card"><h2>${t.paid}</h2><p>${t.paidHelp}</p><a class="button primary">${t.buy}</a></div>
-    </div></details></div>`;
-  const details = section.querySelector("details");
-  const [trial, paid] = details.querySelectorAll("a");
-  const note = details.querySelector("p");
+    </div>`;
+  const [trial, paid] = section.querySelectorAll("a");
+  const note = section.querySelector("p");
   const billing = localizedRoute("https://vpn.tolf.is/billing/");
   const trialUrl = localizedRoute("https://vpn.tolf.is/billing/?trial=1");
   const register = "https://vpn.tolf.is/auth/?mode=signup&next=billing";
   let pending = false;
   async function refresh() {
-    if (!details.open || pending) return;
+    if (section.hidden || pending) return;
     pending = true;
     trial.hidden = true;
     paid.removeAttribute("href");
@@ -194,15 +199,19 @@ function installStartOptions(section) {
       pending = false;
     }
   }
-  details.addEventListener("toggle", refresh);
+  trigger.addEventListener("click", () => {
+    section.hidden = !section.hidden;
+    trigger.setAttribute("aria-expanded", String(!section.hidden));
+    refresh();
+  });
   window.addEventListener("pageshow", refresh);
 }
 
 function installGuestExperience() {
   const productGrid = document.querySelector(".product-grid");
-  const hero = document.querySelector(".hero");
+  const actions = document.querySelector(".hero .why-tolf-action");
 
-  if (!productGrid || !hero) return;
+  if (!productGrid || !actions) return;
 
   const configuratorCard = productGrid
     .querySelector('[data-route="configurator"]')
@@ -234,21 +243,14 @@ function installGuestExperience() {
   if (!document.getElementById("guestAccess")) {
     const section = document.createElement("section");
     section.id = "guestAccess";
-    section.className = "guest-access-section";
-    installStartOptions(section);
-    hero.insertAdjacentElement("afterend", section);
+    installStartOptions(section, actions);
+    actions.insertAdjacentElement("afterend", section);
   }
 
   if (!document.getElementById("guestAccessStyles")) {
     const style = document.createElement("style");
     style.id = "guestAccessStyles";
     style.textContent = `
-      .guest-access-section {
-        padding: 0 0 48px;
-      }
-
-      .start-options summary {cursor:pointer; width:fit-content; list-style:none;}
-      .start-options summary::-webkit-details-marker {display:none}
       .start-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:16px; margin-top:18px;}
       .start-card {display:flex; flex-direction:column; align-items:flex-start; padding:22px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface-solid);}
       .start-card h2 {margin:0; font-size:22px}

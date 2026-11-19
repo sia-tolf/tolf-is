@@ -159,3 +159,34 @@ html[data-tolf-ui="home"] .topbar {
 }
 .why-tolf-action > .start-tolf-button:focus-visible { outline-color: var(--accent); }
 #guestAccess { text-align: start; }
+
+/* Keep the footer in the document flow and pin it to the viewport while scrolling. */
+html[data-tolf-ui="home"] footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 9;
+  padding: 4px 0 calc(4px + env(safe-area-inset-bottom));
+  background: linear-gradient(0deg, #eacbd6 0%, #f0e1e7 55%, #f5f5f7 100%);
+  border-top-color: #d7bcc6;
+}
+@media (prefers-color-scheme: dark) {
+  html[data-tolf-ui="home"] footer {
+    background: linear-gradient(0deg, #260e1a 0%, #3c2933 48%, #4a4b52 100%);
+    border-top-color: #60404d;
+  }
+}
+.footer-links { align-items: center; row-gap: 0; }
+.footer-links a { display: inline-flex; align-items: center; min-height: 40px; }
+@media (max-width: 800px) {
+  html[data-tolf-ui="home"] footer { padding-inline-end: 80px; }
+  .footer-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding-inline-end: 0;
+    overflow-x: auto;
+  }
+  .footer-inner > div { order: 1; white-space: nowrap; }
+  .footer-links { flex: none; flex-wrap: nowrap; gap: 18px; }
+  .footer-links a { white-space: nowrap; }
+}

@@ -129,7 +129,7 @@ html[data-tolf-ui="home"] .topbar {
 }
 @media (prefers-color-scheme: dark) {
   html[data-tolf-ui="home"] .topbar {
-    background: linear-gradient(180deg, #311d25 0%, #332a30 55%, #35353a 100%);
+    background: linear-gradient(180deg, #260e1a 0%, #3c2933 48%, #4a4b52 100%);
     border-bottom-color: #60404d;
   }
 }

@@ -18,4 +18,4 @@ def footer(lang):
  return '<footer class="public-footer">'+''.join(f'<a href="{u}">{label}</a>' for u,label in zip(urls,c[2:]))+'</footer>'
 
 def document(lang, head, content, urls, attributes='', extra=''):
- return f'<!doctype html>\n<html lang="{lang}" {attributes}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">{head}<link rel="stylesheet" href="/public-page.css?v=20261118-unified"></head><body class="public-page"><div class="public-shell">{header(lang,urls)}<main class="public-content">{content}</main>{footer(lang)}</div>{extra}</body></html>\n'
+ return f'<!doctype html>\n<html lang="{lang}" {attributes}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">{head}<link rel="stylesheet" href="/public-page.css?v=20261118-unified"><link rel="stylesheet" href="/segmented-controls.css?v=20261123"></head><body class="public-page"><div class="public-shell">{header(lang,urls)}<main class="public-content">{content}</main>{footer(lang)}</div>{extra}</body></html>\n'
